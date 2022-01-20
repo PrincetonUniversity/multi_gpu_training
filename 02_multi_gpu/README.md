@@ -94,7 +94,7 @@ dist.destroy_process_group()
 srun python myscript.py
 ```
 
-The Python interpreter will be launched 8 times (2 x 4) and each of 8 tasks will have a different value of `SLURM_PROCID` from 0, 1, 2, 3, 4, 5, 6, 7.
+The Python interpreter will be launched 8 times (2 x 4) and each of the 8 tasks will have a different value of `SLURM_PROCID` from the set 0, 1, 2, 3, 4, 5, 6, 7.
 
 ## What is `local_rank`?
 

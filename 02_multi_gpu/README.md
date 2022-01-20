@@ -162,6 +162,7 @@ echo "MASTER_ADDR="$MASTER_ADDR
 gpus_per_node=$(printf ${SLURM_JOB_GPUS} | sed 's/[^0-9]*//g' | wc --chars)
 export GPUS_PER_NODE=$gpus_per_node
 echo "GPUS_PER_NODE="$GPUS_PER_NODE
+# or use SLURM_GPUS_ON_NODE
 
 module purge
 module load anaconda3/2021.5

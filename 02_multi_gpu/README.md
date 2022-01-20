@@ -1,12 +1,20 @@
 # Multi-GPU Training with PyTorch
 
+There are two common reasons for using multiple GPUs when training neural networks:
+- the execution time is to long with a single GPU
+- the model is too large to fit on a single GPU
+
 ## Read about DistributedDataParallel
 
-[intro](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
-[DDP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
+[Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
+[See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
 [blog](https://github.com/pytorch/examples/blob/master/distributed/ddp/README.md)  
 
 SPMD paradigm is used. Model is copied on each GPU so want an optimized version.
+
+## Caveats
+
+Do not use DataParallel in PyTorch since it gives poor performance relative to DDP.
 
 ## Main changes needed in going from single-GPU to multi-GPU training with DDP
 

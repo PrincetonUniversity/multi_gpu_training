@@ -348,3 +348,5 @@ True
 >>> torch.distributed.is_initialized()
 True
 ```
+
+[https://github.com/libffcv/ffcv](https://github.com/libffcv/ffcv)

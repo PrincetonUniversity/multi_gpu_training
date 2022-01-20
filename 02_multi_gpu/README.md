@@ -20,7 +20,7 @@ Do not use DataParallel in PyTorch since it gives poor performance relative to D
 
 This completely new piece is needed to form the process group:
 
-```
+```python
 def setup(rank, world_size):
     # initialize the process group
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
@@ -31,14 +31,14 @@ Note that dist.init_process_group() is blocking. That means the code waits until
 
 For the single-GPU training:
 
-```
+```python
 model = Net().to(device)
 optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 ```
 
 For multi-GPU training with DPP:
 
-```
+```python
 model = Net().to(local_rank)
 ddp_model = DDP(model, device_ids=[local_rank])
 optimizer = optim.Adadelta(ddp_model.parameters(), lr=args.lr)

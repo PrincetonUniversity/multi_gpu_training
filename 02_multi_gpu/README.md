@@ -187,6 +187,7 @@ from torch.optim.lr_scheduler import StepLR
 import os
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
+from socket import gethostname
 
 class Net(nn.Module):
     def __init__(self):
@@ -250,12 +251,8 @@ def test(model, device, test_loader):
         100. * correct / len(test_loader.dataset)))
 
 def setup(rank, world_size):
-    #os.environ['MASTER_ADDR'] = 'localhost'
-    #os.environ['MASTER_PORT'] = '12355'
-
     # initialize the process group
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
-    print("group initialized?", dist.is_initialized(), flush=True)
 
 def main():
     # Training settings
@@ -284,13 +281,11 @@ def main():
     use_cuda = not args.no_cuda and torch.cuda.is_available()
 
     torch.manual_seed(args.seed)
-
-    #device = torch.device("cuda" if use_cuda else "cpu")
-
+    
     train_kwargs = {'batch_size': args.batch_size}
     test_kwargs = {'batch_size': args.test_batch_size}
     if use_cuda:
-        cuda_kwargs = {'num_workers': 4,
+        cuda_kwargs = {'num_workers': int(os.environ["SLURM_CPUS_PER_TASK"]),
                        'pin_memory': True,
                        'shuffle': True}
         train_kwargs.update(cuda_kwargs)
@@ -307,42 +302,31 @@ def main():
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
 
-    n_gpus = torch.cuda.device_count()
-    world_size = 4
-    print(f"Number of allocated GPUs per node is {n_gpus}.", flush=True)
-
+    world_size = int(os.environ["WORLD_SIZE"])
     rank = int(os.environ["SLURM_PROCID"])
-    print(f"Running basic DDP example on rank {rank}.", flush=True)
+    gpus_per_node = int(os.environ["GPUS_PER_NODE"])
+    assert gpus_per_node == torch.cuda.device_count()
+    print(f"Hello from rank {rank} on {gethostname()} with {gpus_per_node} GPUs per node.", flush=True)
+
     setup(rank, world_size)
+    if rank == 0: print(f"Group initialized? {dist.is_initialized()}", flush=True)
 
-            #torch.cuda.set_device(args.gpu)
-            #model.cuda(args.gpu)
-            #model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
-
-    local_rank = rank
-    if rank == 2:
-      local_rank = 0
-    if rank == 3:
-      local_rank = 1
+    local_rank = rank - gpus_per_node * (rank // gpus_per_node)
     torch.cuda.set_device(local_rank)
+    print(f"host: {gethostname()}, rank: {rank}, local_rank: {local_rank}")
 
     model = Net().to(local_rank)
     ddp_model = DDP(model, device_ids=[local_rank])
     optimizer = optim.Adadelta(ddp_model.parameters(), lr=args.lr)
 
-    #model = Net().to(device)
-    #optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
-
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
     for epoch in range(1, args.epochs + 1):
         train(args, ddp_model, local_rank, train_loader, optimizer, epoch)
-        #train(args, ddp_model, device, train_loader, optimizer, epoch)
         test(ddp_model, local_rank, test_loader)
-        #test(ddp_model, device, test_loader)
         scheduler.step()
 
-    #if args.save_model:
-    #    torch.save(model.state_dict(), "mnist_cnn.pt")
+    if args.save_model and rank == 0:
+        torch.save(model.state_dict(), "mnist_cnn.pt")
 
     dist.destroy_process_group()
 

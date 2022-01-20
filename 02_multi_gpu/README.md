@@ -1,7 +1,7 @@
 # Multi-GPU Training with PyTorch
 
 There are two common reasons for using multiple GPUs when training neural networks:
-- the execution time is to long with a single GPU
+- the execution time is too long with a single GPU
 - the model is too large to fit on a single GPU
 
 ## Read about DistributedDataParallel

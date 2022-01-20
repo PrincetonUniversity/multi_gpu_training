@@ -85,6 +85,16 @@ with torch.no_grad():
 dist.destroy_process_group()
 ```
 
+`GPUS_PER_NODE` is defined in the Slurm script (see below) and `SLURM_PROCID` is assigned by Slurm. `SLURM_PROCID` varies from 0 to N - 1 where N is the number of tasks running under `srun`. For instance, consider the abbreviated Slurm script below:
+
+```
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=4
+...
+srun python myscript.py
+```
+
+The Python interpreter will be launched 8 times (2 x 4) and each of 8 tasks will have a different value of `SLURM_PROCID` from 0, 1, 2, 3, 4, 5, 6, 7.
 
 ## What is `local_rank`?
 

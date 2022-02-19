@@ -23,6 +23,8 @@ python mnist_classify.py --epochs=3
 
 Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this procedure.
 
+Learning about [profiling Python](https://researchcomputing.princeton.edu/python-profiling) codes using line_profiler.
+
 ## Optimizing the Single GPU Case
 
 Make sure you optimize the single GPU case before going to multiple GPUs by working through the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html). You should also profile your code using [line_profiler](https://researchcomputing.princeton.edu/python-profiling) or another tools like dlprof.

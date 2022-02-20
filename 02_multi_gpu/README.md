@@ -14,6 +14,10 @@ One should always try to use only a single GPU. This maximizes efficiency. Howev
 
 SPMD paradigm is used. Model is copied on each GPU so want an optimized version.
 
+![ddp](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png)
+
+*Credit for the image above is [here](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png).*
+
 ## Caveats
 
 Do not use DataParallel in PyTorch since it gives poor performance relative to DDP.

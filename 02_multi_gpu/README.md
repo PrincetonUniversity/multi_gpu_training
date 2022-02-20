@@ -6,17 +6,21 @@ There are two common reasons for using multiple GPUs when training neural networ
 
 One should always try to use only a single GPU. This maximizes efficiency. However, in cases where the training is taking too long or the model is very large then one must resort to distributed or multi-GPU training. The more GPUs you request for a Slurm job, the longer the queue time will be.
 
-## Read about DistributedDataParallel
+## Overall Idea of Distributed Data Parallel
 
-[Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
-[See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
-[blog](https://github.com/pytorch/examples/blob/master/distributed/ddp/README.md)  
+Do not use DataParallel.
 
 SPMD paradigm is used. Model is copied on each GPU so want an optimized version.
 
 ![ddp](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png)
 
 *Credit for the image above is [here](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png).*
+
+## Read about DistributedDataParallel
+
+[Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
+[See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
+[blog](https://github.com/pytorch/examples/blob/master/distributed/ddp/README.md)
 
 ## Caveats
 

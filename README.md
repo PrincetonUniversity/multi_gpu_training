@@ -39,5 +39,5 @@ If you encounter any difficulties with the material in this guide then please se
 
 ## Authorship
 
-This guide was created by Jonathan Halverson and members of Research Computing.
+This guide was created by Jonathan Halverson and members of PICSciE and Research Computing.
 

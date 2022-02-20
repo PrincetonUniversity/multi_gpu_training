@@ -187,7 +187,7 @@ The script above uses 3 nodes with 2 tasks per node and therefore 2 GPUs per nod
 
 Below is an example Slurm script for DDP:
 
-```
+```bash
 #!/bin/bash
 #SBATCH --job-name=ddp-torch     # create a short name for your job
 #SBATCH --nodes=2                # node count
@@ -378,18 +378,6 @@ if __name__ == '__main__':
     main()
 ```
 
-# TDO
+# Notes on Traverse
 
-Need to plot loss or accuracy as a function of epochs for different choices of number of GPUs and cpus-per-task.
-
-```
->>> import torch
-# next line in blocking until all processes join
->>> torch.distributed.init_process_group("nccl", init_method='file:///scratch/network/jdh4/sharedfile', rank=0, world_size=1)
->>> torch.distributed.is_initialized()
-True
->>> torch.distributed.is_initialized()
-True
-```
-
-[https://github.com/libffcv/ffcv](https://github.com/libffcv/ffcv)
+Be sure to use the example above for DDP. Do not use the file-based method for initializing the process group. Be sure to follow the [installation directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) using the MIT Conda channel.

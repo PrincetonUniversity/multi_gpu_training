@@ -317,7 +317,7 @@ def main():
     rank = int(os.environ["SLURM_PROCID"])
     gpus_per_node = int(os.environ["GPUS_PER_NODE"])
     assert gpus_per_node == torch.cuda.device_count()
-    print(f"Hello from rank {rank} on {gethostname()} with {gpus_per_node} GPUs per node.", flush=True)
+    print(f"Hello from rank {rank} on {gethostname()} where there are {gpus_per_node} GPUs per node.", flush=True)
 
     setup(rank, world_size)
     if rank == 0: print(f"Group initialized? {dist.is_initialized()}", flush=True)

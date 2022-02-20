@@ -378,6 +378,19 @@ if __name__ == '__main__':
     main()
 ```
 
+Execute the commands below to run the example above:
+
+```
+$ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
+$ cd multi_gpu_training/02_multi_gpu
+$ module load anaconda3/2021.11
+$ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
+$ python download_data.py
+# edit job.slurm with your email address
+$ sbatch job.slurm
+```
+
+
 # NGC Container
 
 If you are using the PyTorch container then the last line of your Slurm script will look like:

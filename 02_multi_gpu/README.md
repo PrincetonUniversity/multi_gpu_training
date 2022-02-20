@@ -16,13 +16,15 @@ SPMD paradigm is used. Model is copied on each GPU so want an optimized version.
 
 ## Read about DistributedDataParallel
 
+Take some time to read through these PyTorch pages. The content below on this page assumes that you have done so.
+
 [Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
 [See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
 [blog](https://github.com/pytorch/examples/blob/master/distributed/ddp/README.md)
 
-## Caveats
+### Caveats
 
-Do not use DataParallel in PyTorch since it gives poor performance relative to DDP.
+Do not use DataParallel in PyTorch since it gives poor performance relative to DistributedDataParallel.
 
 ## Main changes needed in going from single-GPU to multi-GPU training with DDP
 
@@ -35,7 +37,7 @@ def setup(rank, world_size):
     print("group initialized?", dist.is_initialized(), flush=True)
 ```
 
-Note that dist.init_process_group() is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on.
+Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on.
 
 For the single-GPU training:
 

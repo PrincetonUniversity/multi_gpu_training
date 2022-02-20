@@ -24,7 +24,7 @@ Take some time to read through these PyTorch pages. The content below on this pa
 
 ### Caveats
 
-Do not use DataParallel in PyTorch since it gives poor performance relative to DistributedDataParallel.
+Do not use DataParallel in PyTorch for anything since it gives poor performance relative to DistributedDataParallel.
 
 ## Main changes needed in going from single-GPU to multi-GPU training with DDP
 

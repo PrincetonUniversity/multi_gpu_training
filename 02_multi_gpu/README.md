@@ -80,7 +80,7 @@ class Net(nn.Module):
 
 world_size = int(os.environ["WORLD_SIZE"])
 rank = int(os.environ["SLURM_PROCID"])
-gpus_per_node = int(os.environ["GPUS_PER_NODE"])
+gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
 assert gpus_per_node == torch.cuda.device_count()
 print(f"Hello from rank {rank} on {gethostname()} with {gpus_per_node} GPUs per node.", flush=True)
 
@@ -120,7 +120,7 @@ The indices of the GPUs on each node of your Slurm allocation begin at 0 and end
 
 ```python
 rank = int(os.environ["SLURM_PROCID"])
-gpus_per_node = int(os.environ["GPUS_PER_NODE"])
+gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
 local_rank = rank - gpus_per_node * (rank // gpus_per_node)
 ```
 
@@ -345,7 +345,7 @@ def main():
 
     world_size = int(os.environ["WORLD_SIZE"])
     rank = int(os.environ["SLURM_PROCID"])
-    gpus_per_node = int(os.environ["GPUS_PER_NODE"])
+    gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
     assert gpus_per_node == torch.cuda.device_count()
     print(f"Hello from rank {rank} on {gethostname()} where there are {gpus_per_node} GPUs per node.", flush=True)
 

@@ -15,7 +15,7 @@ Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this proc
 Learning about [profiling Python](https://researchcomputing.princeton.edu/python-profiling) codes using line_profiler.
 
 
-## Step 2: Run the Script
+## Step 2: Run and Profile the Script
 
 First, inspect the script:
 
@@ -23,6 +23,15 @@ First, inspect the script:
 $ vim mnist_classify.py  # or emacs, nano, micro, cat
 # type `:q` and then press the Enter/Return key to leave vim
 ```
+
+Note that we will profile to train function using line_profiler:
+
+```python
+@profile
+def train(args, model, device, train_loader, optimizer, epoch):
+```
+
+Notice in the Slurm script (see below) that a specific Conda environment belonging to jdh4 is used. This environment was created using the directions on the PyTorch RC webpage with the addition of line_profiler.
 
 ```bash
 #!/bin/bash
@@ -70,7 +79,7 @@ Memory Efficiency: 64.72% of 4.00 GB
 
 Some variation in the run time is expected when multiple users are running on the same node.
 
-## Analyze the Profiling Data
+## Step 3: Analyze the Profiling Data
 
 We installed [line_profiler](https://researchcomputing.princeton.edu/python-profiling) into the Conda environment and profiled the code. To analyze the profiling data:
 

@@ -183,7 +183,41 @@ srun python myscript.py
 
 The script above uses 3 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 3 nodes is substantial so the queue will be quite long. Try using 1 or 2 nodes per job. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
 
-## Full script
+## Full Example of DDP
+
+Below is an example Slurm script for DDP:
+
+```
+#!/bin/bash
+#SBATCH --job-name=ddp-torch     # create a short name for your job
+#SBATCH --nodes=2                # node count
+#SBATCH --ntasks-per-node=2      # total number of tasks per node
+#SBATCH --cpus-per-task=8        # cpu-cores per task (>1 if multi-threaded tasks)
+#SBATCH --mem=32G                # total memory per node (4 GB per cpu-core is default)
+#SBATCH --gres=gpu:2             # number of gpus per node
+#SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
+
+export MASTER_PORT=$((10000 + $(echo -n $SLURM_JOBID | tail -c 4)))
+export WORLD_SIZE=$(($SLURM_NNODES * $SLURM_NTASKS_PER_NODE))
+echo "WORLD_SIZE="$WORLD_SIZE
+
+master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
+export MASTER_ADDR=$master_addr
+echo "MASTER_ADDR="$MASTER_ADDR
+
+export GPUS_PER_NODE=$SLURM_GPUS_ON_NODE
+echo "GPUS_PER_NODE="$GPUS_PER_NODE
+
+module purge
+module load anaconda3/2021.11
+conda activate /scratch/network/jdh4/CONDA/envs/torch-env
+
+srun python mnist_classify_ddp.py --epochs=3
+```
+
+In the script above, `MASTER_PORT`, `MASTER_ADDR` and `WORLD_SIZE` are set. The three are later used to create the DDP process group. The total number of GPUs allocated to the job must be equal to `WORLD_SIZE`.
+
+Below is the original single-GPU Python script modified to use DDP:
 
 ```python
 from __future__ import print_function
@@ -225,7 +259,6 @@ class Net(nn.Module):
         output = F.log_softmax(x, dim=1)
         return output
 
-
 def train(args, model, device, train_loader, optimizer, epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -241,7 +274,6 @@ def train(args, model, device, train_loader, optimizer, epoch):
                 100. * batch_idx / len(train_loader), loss.item()))
             if args.dry_run:
                 break
-
 
 def test(model, device, test_loader):
     model.eval()

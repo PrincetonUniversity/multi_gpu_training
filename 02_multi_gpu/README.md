@@ -169,9 +169,6 @@ master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 export MASTER_ADDR=$master_addr
 echo "MASTER_ADDR="$MASTER_ADDR
 
-export GPUS_PER_NODE=$SLURM_GPUS_ON_NODE
-echo "GPUS_PER_NODE="$GPUS_PER_NODE
-
 module purge
 module load anaconda3/2021.11
 conda activate torch-env
@@ -203,9 +200,6 @@ master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 export MASTER_ADDR=$master_addr
 echo "MASTER_ADDR="$MASTER_ADDR
 
-export GPUS_PER_NODE=$SLURM_GPUS_ON_NODE
-echo "GPUS_PER_NODE="$GPUS_PER_NODE
-
 module purge
 module load anaconda3/2021.11
 conda activate /scratch/network/jdh4/CONDA/envs/torch-env
@@ -214,6 +208,12 @@ srun python mnist_classify_ddp.py --epochs=3
 ```
 
 In the script above, `MASTER_PORT`, `MASTER_ADDR` and `WORLD_SIZE` are set. The three are later used to create the DDP process group. The total number of GPUs allocated to the job must be equal to `WORLD_SIZE`.
+
+In the script below the number of workers is taken directly from the value of `--cpus-per-task` which is set in the Slurm script:
+
+```
+cuda_kwargs = {'num_workers': int(os.environ["SLURM_CPUS_PER_TASK"]), 'pin_memory': True, 'shuffle': True}
+```
 
 Below is the original single-GPU Python script modified to use DDP:
 

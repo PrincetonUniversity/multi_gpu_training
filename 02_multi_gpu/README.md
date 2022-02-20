@@ -78,8 +78,8 @@ class Net(nn.Module):
         output = F.log_softmax(x, dim=1)
         return output
 
-world_size = int(os.environ["WORLD_SIZE"])
-rank = int(os.environ["SLURM_PROCID"])
+rank          = int(os.environ["SLURM_PROCID"])
+world_size    = int(os.environ["WORLD_SIZE"])
 gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
 assert gpus_per_node == torch.cuda.device_count()
 print(f"Hello from rank {rank} on {gethostname()} with {gpus_per_node} GPUs per node.", flush=True)

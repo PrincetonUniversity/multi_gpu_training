@@ -21,6 +21,7 @@ First, inspect the script:
 
 ```
 $ vim mnist_classify.py  # or emacs, nano, micro, cat
+# type `:q` and then press the Enter/Return key to leave vim
 ```
 
 ```bash

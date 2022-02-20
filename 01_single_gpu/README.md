@@ -20,7 +20,7 @@ Learning about [profiling Python](https://researchcomputing.princeton.edu/python
 First, inspect the script:
 
 ```
-$ vim mnist_classifier.py  # or emacs, nano, micro, cat
+$ vim mnist_classify.py  # or emacs, nano, micro, cat
 ```
 
 ```bash
@@ -115,7 +115,7 @@ Make sure you optimize the single GPU case before going to multiple GPUs by work
 
 ## Step 4: Optimize Your Script
 
-In mnist_classify.py, change `num_workers` from 1 to 8. And then in job.slurm.single change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change?
+In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm.single` change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change?
 
 ## Summary
 

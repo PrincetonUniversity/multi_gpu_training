@@ -169,10 +169,8 @@ master_addr=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
 export MASTER_ADDR=$master_addr
 echo "MASTER_ADDR="$MASTER_ADDR
 
-gpus_per_node=$(printf ${SLURM_JOB_GPUS} | sed 's/[^0-9]*//g' | wc --chars)
-export GPUS_PER_NODE=$gpus_per_node
+export GPUS_PER_NODE=$SLURM_GPUS_ON_NODE
 echo "GPUS_PER_NODE="$GPUS_PER_NODE
-# or use SLURM_GPUS_ON_NODE
 
 module purge
 module load anaconda3/2021.11

@@ -116,8 +116,10 @@ Make sure you optimize the single GPU case before going to multiple GPUs by work
 
 ## Step 4: Optimize Your Script
 
+One technique that was discussed in the Performance Tuning Guide was using multiple CPU-cores to speed-up data loading. Let's put this into practice.
+
 In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm.single` change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change?
 
 ## Summary
 
-It is essential to op
+It is essential to optimize your code before going to multi-GPU training since the inefficiencies will only be magnified otherwise. The more GPUs you request in a Slurm job, the longer you wait for the job to run. Don't waste resources. Optimize your code and then scale it. Next, we focus on scaling the code to multiple GPUs.

@@ -4,6 +4,8 @@ There are two common reasons for using multiple GPUs when training neural networ
 - the execution time is too long with a single GPU
 - the model is too large to fit on a single GPU
 
+One should always try to use only a single GPU. This maximizes efficiency. However, in cases where the training is taking too long or the model is very large then one must resort to distributed or multi-GPU training. The more GPUs you request for a Slurm job, the longer the queue time will be.
+
 ## Read about DistributedDataParallel
 
 [Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  

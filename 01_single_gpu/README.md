@@ -131,6 +131,8 @@ In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm
 
 ![multiple_workers](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca4eff975d80.png)
 
+*Credit for image above is [here](https://www.telesens.co/2019/04/04/distributed-data-parallel-training-using-pytorch-on-aws/).*
+
 Consider these external data loading libraries: [ffcv](https://github.com/libffcv/ffcv) and [NVIDIA DALI](https://developer.nvidia.com/dali).
 
 ## Summary

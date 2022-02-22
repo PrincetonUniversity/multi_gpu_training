@@ -2,7 +2,9 @@
 
 [PyTorch Lightning](https://www.pytorchlightning.ai) provides extension to PyTorch to ease and distributed training. One simply needs to restructure their code to take advantange of all the offerings of Lightning. Once the code is restructured, one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest.
 
-Installation for Della-GPU or Adroit (A100):
+## Installation
+
+Della-GPU or Adroit (A100):
 
 ```bash
 $ module load anaconda3/2021.11

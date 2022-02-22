@@ -60,3 +60,13 @@ conda activate torch-lit-env
 
 srun python myscript.py
 ```
+
+Use Slurm environment variables to set values (as opposed to hard coding the values):
+
+```
+num_nodes = int(os.environ["SLURM_NNODES"])
+gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
+num_gpus = number_of_nodes * gpus_per_node
+
+trainer = pl.Trainer(gpus=num_gpus, num_nodes=num_nodes, precision=32, limit_train_batches=0.5, enable_progress_bar=False, max_epochs=10)
+```

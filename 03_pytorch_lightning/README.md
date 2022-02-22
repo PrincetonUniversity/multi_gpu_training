@@ -7,6 +7,11 @@ $ module load anaconda3/2021.11
 $ conda create --name torch-env pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 $ conda activate torch-env
 $ pip install pytorch-lightning
+```
+
+Run the example job:
+
+```
 $ cd /scratch/gpfs/<YourNetID>  # or /scratch/network on adroit
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
 $ cd multi_gpu_training/03_multi_gpu_lightning

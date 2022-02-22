@@ -7,7 +7,7 @@ Installation for Della-GPU or Adroit (A100):
 ```bash
 $ module load anaconda3/2021.11
 $ conda create --name torch-lit-env pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
-$ conda activate torch-lit-env
+$ conda activate torch-pl-env
 $ pip install pytorch-lightning
 ```
 
@@ -37,7 +37,7 @@ See the [Trainer API](https://pytorch-lightning.readthedocs.io/en/latest/common/
 
 module purge
 module load anaconda3/2020.11
-conda activate torch-lit-env
+conda activate torch-pl-env
 
 python myscript.py
 ```
@@ -56,7 +56,7 @@ python myscript.py
 
 module purge
 module load anaconda3/2020.11
-conda activate torch-lit-env
+conda activate torch-pl-env
 
 srun python myscript.py
 ```

@@ -210,6 +210,12 @@ srun python mnist_classify_ddp.py --epochs=3
 
 In the script above, `MASTER_PORT`, `MASTER_ADDR` and `WORLD_SIZE` are set. The three are later used to create the DDP process group. The total number of GPUs allocated to the job must be equal to `WORLD_SIZE`.
 
+For a job array, all jobs of the array have the same value of SLURM_JOBID. Because of this, one will need to modify `MASTER_PORT` as follows:
+
+```
+export MASTER_PORT=$((10000 + $(echo -n $SLURM_JOBID | tail -c 4) + $SLURM_ARRAY_TASK_ID))
+```
+
 In the script below the number of workers is taken directly from the value of `--cpus-per-task` which is set in the Slurm script:
 
 ```

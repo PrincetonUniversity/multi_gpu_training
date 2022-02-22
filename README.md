@@ -29,7 +29,7 @@ Toward the end of the workshop please complete [this survey](https://forms.gle/p
 
 - The live workshop will be recorded
 - Please check-in using this link: [https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
-- [Zoom link](https://princeton.zoom.us/my/picscieworkshop2)
+- Zoom: [https://princeton.zoom.us/my/picscieworkshop](https://princeton.zoom.us/my/picscieworkshop)
 - Request an account on [Adroit](https://forms.rc.princeton.edu/registration/?q=adroit)
 - To use GPUs during the workshop: `#SBATCH --reservation=multigpu`
 

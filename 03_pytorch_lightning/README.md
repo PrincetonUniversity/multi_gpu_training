@@ -18,3 +18,5 @@ $ cd multi_gpu_training/03_multi_gpu_lightning
 $ wget https://raw.githubusercontent.com/PrincetonUniversity/install_pytorch/master/download_mnist.py
 $ python download_mnist.py
 ```
+
+See the [Trainer API](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-class-api).

@@ -19,16 +19,16 @@ Success
 
 ## Attendance
 
-[Link](https://docs.google.com/spreadsheets/d/1IvaQ32-BcRHdQhDz979HX-7U7qjzRDyp/edit#gid=395939115)
+[https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
 
 ## Workshop Survey
 
-Toward the end of the workshop please complete [this survey](http://bit.ly/PUBootcampWinter2021survey).
+Toward the end of the workshop please complete [this survey](https://forms.gle/pGi2tkzb7WCtVMcQ6).
 
 ## Reminders
 
 - The live workshop will be recorded
-- Please check-in using this link: [http://cglink.me/2gi/c1340957101282848](http://cglink.me/2gi/c1340957101282848)
+- Please check-in using this link: [https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
 - [Zoom link](https://princeton.zoom.us/my/picscieworkshop2)
 - Request an account on [Adroit](https://forms.rc.princeton.edu/registration/?q=adroit)
 - To use GPUs during the workshop: `#SBATCH --reservation=multigpu`

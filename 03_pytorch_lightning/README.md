@@ -5,8 +5,7 @@
 + restructure the code by moving the network definition and optimizer to a subclass of `pl.LightningModule`  
 + remove .cuda() and .to() calls since Lightning code should be hardware agnostic  
 
-Once these changes have, one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest.
-
+Once these changes have, one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest. One can also use different numerical precisions (fp16, bf16), there is tensorboard support and DDP.
 ## Installation
 
 Della-GPU or Adroit (A100):

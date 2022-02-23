@@ -70,10 +70,11 @@ from torchmetrics.functional import accuracy
 
 seed_everything(7)
 
+BATCH_SIZE = 256
 PATH_DATASETS = os.environ.get("PATH_DATASETS", ".")
-AVAIL_GPUS = int(os.environ["SLURM_GPUS_ON_NODE"])
-BATCH_SIZE = 256 if AVAIL_GPUS else 64
-NUM_WORKERS = int(os.environ["SLURM_CPUS_PER_TASK"])
+NUM_WORKERS   = int(os.environ["SLURM_CPUS_PER_TASK"])
+NUM_NODES     = int(os.environ["SLURM_NNODES"])
+GPUS_PER_NODE = int(os.environ["SLURM_GPUS_ON_NODE"])
 
 train_transforms = torchvision.transforms.Compose(
     [
@@ -164,9 +165,10 @@ model = LitResnet(lr=0.05)
 model.datamodule = cifar10_dm
 
 trainer = Trainer(
-    gpus=AVAIL_GPUS,
-    num_nodes=1,
+    gpus=GPUS_PER_NODE,
+    num_nodes=NUM_NODES,
     strategy='ddp',
+    precision=32,
     max_epochs=10,
     progress_bar_refresh_rate=10,
     logger=TensorBoardLogger("lightning_logs/", name="resnet"),
@@ -254,6 +256,10 @@ num_gpus = number_of_nodes * gpus_per_node
 
 trainer = pl.Trainer(gpus=num_gpus, num_nodes=num_nodes, precision=32, limit_train_batches=0.5, enable_progress_bar=False, max_epochs=10)
 ```
+
+## Numerical Precision
+
+You can try adjusting the `precision` to accelerate training. The choice of `precision="bf16"` can only be used with PyTorch 1.10.
 
 ## Debugging
 

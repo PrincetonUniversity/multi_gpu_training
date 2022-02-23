@@ -76,3 +76,8 @@ num_gpus = number_of_nodes * gpus_per_node
 
 trainer = pl.Trainer(gpus=num_gpus, num_nodes=num_nodes, precision=32, limit_train_batches=0.5, enable_progress_bar=False, max_epochs=10)
 ```
+
+Useful Links
+
++ [PyTorch Lightning and Slurm](https://pytorch-lightning.readthedocs.io/en/latest/clouds/cluster.html)  
++ [PyTorch LightningLite](https://pytorch-lightning.readthedocs.io/en/latest/starter/lightning_lite.html)

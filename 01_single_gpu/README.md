@@ -24,12 +24,6 @@ Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this proc
 
 First, inspect the script ([see script](mnist_classify.py)).
 
-```bash
-$ cd multi_gpu_training/01_single_gpu
-$ vim mnist_classify.py  # or emacs, nano, micro, cat
-# type ":q" (without the quotes) and then press the Enter/Return key to leave vim
-```
-
 Note that we will profile the `train` function using `line_profiler` (see line 40):
 
 ```python

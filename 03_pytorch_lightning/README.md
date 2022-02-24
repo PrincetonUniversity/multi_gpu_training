@@ -1,6 +1,6 @@
 # PyTorch Lightning
 
-[PyTorch Lightning](https://www.pytorchlightning.ai) provides extension to PyTorch to ease and distributed training. One simply needs to:
+[PyTorch Lightning](https://www.pytorchlightning.ai) wraps PyTorch to provide easy and distributed training. One simply needs to:
 
 + restructure the code by moving the network definition and optimizer to a subclass of `pl.LightningModule`  
 + remove .cuda() and .to() calls since Lightning code should be hardware agnostic  

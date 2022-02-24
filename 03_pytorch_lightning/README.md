@@ -50,7 +50,7 @@ python myscript.py
 
 ## Multi-GPU Example
 
-Let's work through this [example](https://pytorch-lightning.readthedocs.io/en/latest/notebooks/lightning_examples/cifar10-baseline.html) where a modified resnet18 model is training on CIFAR10. Here is the application script:
+Let's work through this [example](https://pytorch-lightning.readthedocs.io/en/latest/notebooks/lightning_examples/cifar10-baseline.html) where a modified ResNet-18 model is trained on [CIFAR-10](https://en.wikipedia.org/wiki/CIFAR-10). Here is the application script:
 
 ```python
 import os

@@ -211,7 +211,7 @@ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 srun python mnist_classify_ddp.py --epochs=3
 ```
 
-The script above uses 2 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 3 nodes is substantial so the queue will be quite long. Try using 1 or 2 nodes per job. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
+The script above uses 2 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 2 full nodes is substantial so the queue time will be quite long. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
 
 Below is the original single-GPU Python script modified to use DDP:
 

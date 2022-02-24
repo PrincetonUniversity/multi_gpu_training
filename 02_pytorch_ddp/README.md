@@ -54,7 +54,7 @@ More on `local_rank` below. In short, this is the GPU index.
 
 ## Simple DDP Script
 
-The following can be used for debugging and provides a simple intro to DPP:
+The following can be used as a simple use case of DPP:
 
 ```python
 import os
@@ -102,7 +102,7 @@ with torch.no_grad():
 dist.destroy_process_group()
 ```
 
-`GPUS_PER_NODE` is defined in the Slurm script (see below) and `SLURM_PROCID` is assigned by Slurm. `SLURM_PROCID` varies from 0 to N - 1 where N is the number of tasks running under `srun`. For instance, consider the abbreviated Slurm script below:
+`SLURM_PROCID` is a Slurm environment variable and it varies from 0 to N - 1, where N is the number of tasks running under `srun`. For instance, consider the abbreviated Slurm script below:
 
 ```
 #SBATCH --nodes=2
@@ -143,20 +143,12 @@ conda activate torch-env
 srun python myscript.py
 ```
 
-The script above uses 3 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 3 nodes is substantial so the queue will be quite long. Try using 1 or 2 nodes per job. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
-
 In the script above, `MASTER_PORT`, `MASTER_ADDR` and `WORLD_SIZE` are set. The three are later used to create the DDP process group. The total number of GPUs allocated to the job must be equal to `WORLD_SIZE`.
 
 For a job array, all jobs of the array have the same value of `SLURM_JOBID`. Because of this, it is wise to modify `MASTER_PORT`. Here is one possibility:
 
 ```
-export MASTER_PORT=$((10000 + $(echo -n $SLURM_JOBID | tail -c 4) + $SLURM_ARRAY_TASK_ID))
-```
-
-In the script below the number of workers is taken directly from the value of `--cpus-per-task` which is set in the Slurm script:
-
-```
-cuda_kwargs = {'num_workers': int(os.environ["SLURM_CPUS_PER_TASK"]), 'pin_memory': True, 'shuffle': True}
+export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4) + $SLURM_ARRAY_TASK_ID)
 ```
 
 ## What is `local_rank`?
@@ -218,6 +210,8 @@ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 
 srun python mnist_classify_ddp.py --epochs=3
 ```
+
+The script above uses 2 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 3 nodes is substantial so the queue will be quite long. Try using 1 or 2 nodes per job. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
 
 Below is the original single-GPU Python script modified to use DDP:
 
@@ -381,15 +375,20 @@ if __name__ == '__main__':
     main()
 ```
 
+In the script above the number of workers is taken directly from the value of `--cpus-per-task` which is set in the Slurm script:
+
+```
+cuda_kwargs = {'num_workers': int(os.environ["SLURM_CPUS_PER_TASK"]), 'pin_memory': True, 'shuffle': True}
+```
+
 Execute the commands below to run the example above:
 
 ```bash
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
-$ cd multi_gpu_training/02_multi_gpu
+$ cd multi_gpu_training/02_pytorch_ddp
 $ module load anaconda3/2021.11
 $ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 $ python download_data.py
-# edit job.slurm with your email address
 $ sbatch job.slurm
 ```
 

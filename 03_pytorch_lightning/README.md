@@ -48,7 +48,7 @@ See the [Trainer API](https://pytorch-lightning.readthedocs.io/en/latest/common/
 
 module purge
 module load anaconda3/2020.11
-conda activate torch-pl-env
+conda activate /scratch/network/jdh4/CONDA/envs/torch-pl-env
 
 python myscript.py
 ```
@@ -203,7 +203,9 @@ $ pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 pytorch-lightning ligh
 The compute nodes do not have internet access so download the data on the login node:
 
 ```
-$ cd multi_gpu_training/03_lightning
+$ cd multi_gpu_training/03_lightning/multi
+$ module load anaconda3/2021.11
+$ conda activate /scratch/network/jdh4/CONDA/envs/bolts
 $ python download_cifar10.py
 ```
 

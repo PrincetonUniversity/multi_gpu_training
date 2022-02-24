@@ -20,16 +20,6 @@ $ conda activate torch-pl-env
 $ pip install pytorch-lightning
 ```
 
-Run the example job:
-
-```bash
-$ module load anaconda3/2021.11
-$ conda activate /scratch/network/jdh4/CONDA/envs/torch-pl-env
-$ cd multi_gpu_training/03_pytorch_lightning
-$ wget https://raw.githubusercontent.com/PrincetonUniversity/install_pytorch/master/download_mnist.py
-$ python download_mnist.py
-```
-
 See the [Trainer API](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-class-api).
 
 ## Single-GPU Example

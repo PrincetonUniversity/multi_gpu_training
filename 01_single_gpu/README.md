@@ -37,6 +37,15 @@ Note that we will profile the `train` function using `line_profiler`:
 def train(args, model, device, train_loader, optimizer, epoch):
 ```
 
+Next, download the data and submit the job:
+
+```bash
+$ cd multi_gpu_training/01_single_gpu
+$ module load anaconda3/2021.11
+$ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
+$ python download_data.py
+```
+
 Notice in the Slurm script (see below) that a specific Conda environment belonging to jdh4 is used. This environment was created using the directions on the PyTorch RC webpage with the addition of line_profiler.
 
 ```bash
@@ -57,13 +66,9 @@ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 python mnist_classify.py --epochs=3
 ```
 
-Next, download the data and submit the job:
+Finally, submit the job:
 
-```bash
-$ cd multi_gpu_training/01_single_gpu
-$ module load anaconda3/2021.11
-$ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
-$ python download_data.py
+```
 $ sbatch job.slurm.single
 ```
 

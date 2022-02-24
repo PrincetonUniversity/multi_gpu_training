@@ -1,10 +1,10 @@
 # Single-GPU Training
 
-It is imperative to optimize your script using a single GPU before going to multiple GPUs. This is because as you request more resources, your queue time increases. We also don't want to waste resources by running code this not optimized.
+It is important to optimize your script for single-GPU training before going to multiple GPUs. This is because as you request more resources, your queue time increases. We also want to avoid wasting resources by running code that is not optimized.
 
-Here we train a CNN on the MNIST dataset using a single GPU as an example. We the profile the code using various tools and make performance improvements.
+Here we train a CNN on the MNIST dataset using a single GPU as an example. We profile the code and make performance improvements.
 
-This tutorial uses PyTorch but the steps are the same for TensorFlow. See the TensorFlow [installation directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) and [performance tuning guide](https://tigress-web.princeton.edu/~jdh4/TensorflowPerformanceOptimization_GTC2021.pdf).
+This tutorial uses PyTorch but the steps are the similar for TensorFlow. See our [TensorFlow](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) page and the [performance tuning guide](https://tigress-web.princeton.edu/~jdh4/TensorflowPerformanceOptimization_GTC2021.pdf).
 
 ## Step 1: Installation
 

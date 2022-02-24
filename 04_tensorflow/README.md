@@ -6,5 +6,7 @@ Single-worker mirrored strategy is the starting point for keras with multiple GP
 
 [See here](https://www.tensorflow.org/tutorials/distribute/keras)
 
+[Slurm example](https://towardsdatascience.com/train-a-neural-network-on-multi-gpu-with-tensorflow-42fa5f51b8af)
+
 ## Horovod
 

@@ -50,7 +50,7 @@ python myscript.py
 
 ## Multi-GPU Example
 
-Let's work through this [example](https://pytorch-lightning.readthedocs.io/en/latest/notebooks/lightning_examples/cifar10-baseline.html)
+Let's work through this [example](https://pytorch-lightning.readthedocs.io/en/latest/notebooks/lightning_examples/cifar10-baseline.html) where a modified resnet18 model is training on CIFAR10. Here is the application script:
 
 ```python
 import os
@@ -180,7 +180,7 @@ trainer.test(model, datamodule=cifar10_dm)
 ```
 
 
-### Installation
+### Step 1: Installation
 
 **You can skip this step during the live workshop.**
 
@@ -193,7 +193,7 @@ $ conda activate bolts
 $ pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 pytorch-lightning lightning-bolts -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-### Download the data
+### Step 2: Download the data
 
 The compute nodes do not have internet access so download the data on the login node:
 
@@ -202,12 +202,9 @@ $ cd multi_gpu_training/03_lightning
 $ python download_cifar10.py
 ```
 
-Submit the job:
+### Step 3: Submit the Job
 
-```
-$ sbatch job.slurm
-```
-
+Below is the Slurm script:
 
 ```
 #!/bin/bash
@@ -229,33 +226,15 @@ export PL_TORCH_DISTRIBUTED_BACKEND=gloo
 srun python myscript.py
 ```
 
+Submit the job:
 
 ```
-#!/bin/bash
-#SBATCH --job-name=myjob         # create a short name for your job
-#SBATCH --nodes=2                # node count
-#SBATCH --ntasks=2               # total number of tasks across all nodes
-#SBATCH --cpus-per-task=8        # cpu-cores per task (>1 if multi-threaded tasks)
-#SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G per cpu-core is default)
-#SBATCH --time=1:00:00           # total run time limit (HH:MM:SS)
-#SBATCH --gres=gpu:2             # number of gpus per node
-
-module purge
-module load anaconda3/2020.11
-conda activate torch-pl-env
-
-srun python myscript.py
+$ sbatch job.slurm
 ```
 
-Use Slurm environment variables to set values (as opposed to hard coding the values):
+By default, DDP uses "nccl" as its backend. The code was found to hang so "gloo" was used.
 
-```
-num_nodes = int(os.environ["SLURM_NNODES"])
-gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
-num_gpus = number_of_nodes * gpus_per_node
-
-trainer = pl.Trainer(gpus=num_gpus, num_nodes=num_nodes, precision=32, limit_train_batches=0.5, enable_progress_bar=False, max_epochs=10)
-```
+How does the training time decrease in going from 1, 2 to 4 GPUs? What happens if you use `precision=16`?
 
 ## Numerical Precision
 

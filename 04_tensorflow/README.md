@@ -138,4 +138,4 @@ Look to [MultiWorkerMirroredStrategy](https://www.tensorflow.org/guide/distribut
 
 ## Horovod
 
-[Horovod](https://horovod.ai/) is a is a distributed deep learning training framework for TensorFlow, Keras, PyTorch, and Apache MXNet. It is based on MPI.
+[Horovod](https://horovod.ai/) is a distributed deep learning training framework for TensorFlow, Keras, PyTorch, and Apache MXNet. It is based on MPI.

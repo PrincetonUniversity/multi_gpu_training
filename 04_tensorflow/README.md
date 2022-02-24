@@ -4,6 +4,8 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 
 ## Single-Node, Synchronous, Multi-GPU Training
 
+**Skip this step for the live workship.**
+
 Install TensorFlow for the V100 nodes:
 
 ```bash
@@ -115,7 +117,7 @@ Below is a sample Slurm:
 
 module purge
 module load anaconda3/2021.11
-conda activate tf2-gpu
+conda activate /scratch/network/jdh4/CONDA/envs/tf2-gpu
 
 python mnist_classify.py
 ```

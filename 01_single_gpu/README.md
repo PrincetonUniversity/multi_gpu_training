@@ -24,7 +24,8 @@ Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this proc
 
 First, inspect the script:
 
-```
+```bash
+$ cd multi_gpu_training/01_single_gpu
 $ vim mnist_classify.py  # or emacs, nano, micro, cat
 # type `:q` and then press the Enter/Return key to leave vim
 ```

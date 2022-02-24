@@ -14,17 +14,14 @@ The single-program, multipel data (SPMD) paradigm is used. That is, the model is
 
 *Credit for the image above is [here](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png).*
 
-## Read about DistributedDataParallel
-
-Take some time to read through these PyTorch pages. The content below on this page assumes that you have done so.
+If you would like more background then read through these PyTorch pages:
 
 [Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
 [See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
-[blog](https://github.com/pytorch/examples/blob/master/distributed/ddp/README.md)
 
-### Caveats
+### Be Aware
 
-Do not use DataParallel in PyTorch for anything since it gives poor performance relative to DistributedDataParallel.
+Do not use `DataParallel` in PyTorch for anything since it gives poor performance relative to `DistributedDataParallel`.
 
 ## Main changes needed in going from single-GPU to multi-GPU training with DDP
 

@@ -105,25 +105,6 @@ trainer = pl.Trainer(gpus=1, num_nodes=1, precision=32, limit_train_batches=0.5,
 trainer.fit(model, train_loader, val_loader)
 ```
 
-Below is a sample Slurm script:
-
-```
-#!/bin/bash
-#SBATCH --job-name=myjob         # create a short name for your job
-#SBATCH --nodes=1                # node count
-#SBATCH --ntasks=1               # total number of tasks across all nodes
-#SBATCH --cpus-per-task=8        # cpu-cores per task (>1 if multi-threaded tasks)
-#SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G per cpu-core is default)
-#SBATCH --time=1:00:00           # total run time limit (HH:MM:SS)
-#SBATCH --gres=gpu:1             # number of gpus per node
-
-module purge
-module load anaconda3/2020.11
-conda activate /scratch/network/jdh4/CONDA/envs/torch-pl-env
-
-python myscript.py
-```
-
 ## Multi-GPU Example
 
 Let's work through this [example](https://pytorch-lightning.readthedocs.io/en/latest/notebooks/lightning_examples/cifar10-baseline.html) where a modified ResNet-18 model is trained on [CIFAR-10](https://en.wikipedia.org/wiki/CIFAR-10). Here is the application script:

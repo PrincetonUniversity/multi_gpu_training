@@ -24,7 +24,7 @@ Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this proc
 
 First, inspect the script ([see script](mnist_classify.py)).
 
-Note that we will profile the `train` function using `line_profiler` (see line 40):
+Note that we will profile the `train` function using `line_profiler` (see line 39):
 
 ```python
 @profile
@@ -48,7 +48,7 @@ Notice in the Slurm script (see below) that a specific Conda environment belongi
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=1        # cpu-cores per task (>1 if multi-threaded tasks)
-#SBATCH --mem=4G                 # total memory per node (4 GB per cpu-core is default)
+#SBATCH --mem=8G                 # total memory per node (4 GB per cpu-core is default)
 #SBATCH --gres=gpu:1             # number of gpus per node
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
 #SBATCH --reservation=multigpu   # REMOVE THIS LINE AFTER THE WORKSHOP

@@ -340,8 +340,8 @@ def main():
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
 
-    world_size = int(os.environ["WORLD_SIZE"])
-    rank = int(os.environ["SLURM_PROCID"])
+    world_size    = int(os.environ["WORLD_SIZE"])
+    rank          = int(os.environ["SLURM_PROCID"])
     gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
     assert gpus_per_node == torch.cuda.device_count()
     print(f"Hello from rank {rank} of {world_size} on {gethostname()} where there are" \

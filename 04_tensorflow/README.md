@@ -14,12 +14,13 @@ Install TensorFlow for the V100 nodes:
 $ ssh <YourNetID>@adroit.princeton.edu
 $ module load anaconda3/2021.11
 $ conda create --name tf2-gpu tensorflow-gpu tensorflow-datasets -y
-$ conda activate tf2-gpu
 ```
 
 ### Step 2: Download the Data
 
 ```
+$ module load anaconda3/2021.11
+$ conda activate /scratch/network/jdh4/CONDA/envs/tf2-gpu
 $ python
 Python 3.9.7 (default, Sep 16 2021, 13:09:58) 
 [GCC 7.5.0] :: Anaconda, Inc. on linux

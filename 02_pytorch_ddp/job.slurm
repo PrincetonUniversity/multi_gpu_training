@@ -19,4 +19,4 @@ module purge
 module load anaconda3/2021.11
 conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 
-srun python mnist_classify_ddp.py --epochs=3
+srun python mnist_classify_ddp.py --epochs=2

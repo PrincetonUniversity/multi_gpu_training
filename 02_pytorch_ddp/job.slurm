@@ -6,6 +6,7 @@
 #SBATCH --mem=32G                # total memory per node (4 GB per cpu-core is default)
 #SBATCH --gres=gpu:2             # number of gpus per node
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
+#SBATCH --reservation=multigpu   # REMOVE THIS LINE AFTER THE WORKSHOP
 
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
 export WORLD_SIZE=$(($SLURM_NNODES * $SLURM_NTASKS_PER_NODE))

@@ -216,7 +216,6 @@ The script above uses 2 nodes with 2 tasks per node and therefore 2 GPUs per nod
 Below is the original single-GPU Python script modified to use DDP:
 
 ```python
-from __future__ import print_function
 import argparse
 import torch
 import torch.nn as nn

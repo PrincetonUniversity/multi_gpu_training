@@ -31,7 +31,6 @@ This completely new piece is needed to form the process group:
 def setup(rank, world_size):
     # initialize the process group
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
-    print("group initialized?", dist.is_initialized(), flush=True)
 ```
 
 Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on.
@@ -50,6 +49,8 @@ model = Net().to(local_rank)
 ddp_model = DDP(model, device_ids=[local_rank])
 optimizer = optim.Adadelta(ddp_model.parameters(), lr=args.lr)
 ```
+
+More on `local_rank` below. In short, this is the GPU index.
 
 ## Simple DDP Script
 

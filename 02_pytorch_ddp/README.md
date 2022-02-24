@@ -397,7 +397,7 @@ Use `gradient_as_bucket_view=True` when making the DDP model to decrease the req
 
 ## NGC Container
 
-If you are using the PyTorch container then the last line of your Slurm script will look like:
+If you are using the [PyTorch container](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch#containers) then the last line of your Slurm script will look like:
 
 ```
 srun singularity exec --nv $HOME/software/pytorch_22.01-py3.sif python mnist_classify_ddp.py --epochs=3

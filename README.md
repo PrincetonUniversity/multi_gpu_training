@@ -6,7 +6,7 @@ This workshop shows participants how to optimize single-GPU training. The concep
 
 ## Setup
 
-Make sure you can run the Python script `test.py` on Adroit:
+Make sure you can run Python on Adroit:
 
 ```bash
 $ ssh <YourNetID>@adroit.princeton.edu  # VPN required if off-campus

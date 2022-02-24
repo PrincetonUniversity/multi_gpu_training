@@ -8,6 +8,8 @@
 Once these changes have, one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest. One can also use different numerical precisions (fp16, bf16), there is tensorboard support and DDP.
 ## Installation
 
+**You do not need to do this for the live workshop!**
+
 Della-GPU or Adroit (A100):
 
 ```bash

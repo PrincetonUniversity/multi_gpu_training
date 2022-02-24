@@ -27,7 +27,7 @@ First, inspect the script:
 ```bash
 $ cd multi_gpu_training/01_single_gpu
 $ vim mnist_classify.py  # or emacs, nano, micro, cat
-# type ":q" and then press the Enter/Return key to leave vim
+# type ":q" (without the quotes) and then press the Enter/Return key to leave vim
 ```
 
 Note that we will profile the `train` function using `line_profiler`:

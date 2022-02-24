@@ -30,7 +30,7 @@ $ vim mnist_classify.py  # or emacs, nano, micro, cat
 # type ":q" and then press the Enter/Return key to leave vim
 ```
 
-Note that we will profile to train function using line_profiler:
+Note that we will profile the `train` function using `line_profiler`:
 
 ```python
 @profile

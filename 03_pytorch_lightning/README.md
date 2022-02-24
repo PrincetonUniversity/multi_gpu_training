@@ -215,7 +215,8 @@ Below is the Slurm script:
 #SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G per cpu-core is default)
 #SBATCH --time=1:00:00           # total run time limit (HH:MM:SS)
 #SBATCH --gres=gpu:2             # number of gpus per node
-# SBATCH --constraint=a100
+#SBATCH --constraint=a100
+#SBATCH --reservation=multigpu   # REMOVE THIS LINE AFTER THE WORKSHOP
 
 module purge
 module load anaconda3/2021.11

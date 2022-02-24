@@ -38,7 +38,6 @@ import os
 print(tf.__version__)
 
 datasets, info = tfds.load(name='mnist', with_info=True, as_supervised=True)
-#datasets, info = tfds.load(name='mnist', with_info=True, as_supervised=True, download=False, data_dir="/home/jdh4/tensorflow_datasets/mnist/3.0.1")
 mnist_train, mnist_test = datasets['train'], datasets['test']
 
 # multiple GPUs on a single machine

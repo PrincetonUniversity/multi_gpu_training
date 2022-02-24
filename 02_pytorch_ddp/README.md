@@ -1,14 +1,14 @@
-# Multi-GPU Training with PyTorch
+# Multi-GPU Training with PyTorch: Distributed Data Parallel (DDP)
 
-One should always try to use only a single GPU. This maximizes efficiency. However, there are two common reasons for using multiple GPUs when training neural networks:
+One should always first try to use only a single GPU for training. This maximizes efficiency. There are two common reasons for using multiple GPUs when training neural networks:
 - the execution time is too long with a single GPU
 - the model is too large to fit on a single GPU
 
-The more GPUs you request for a Slurm job, the longer the queue time will be.
+The more GPUs you request for a Slurm job, the longer the queue time will be. Learn how to conduct a [scaling analysis](https://researchcomputing.princeton.edu/support/knowledge-base/scaling-analysis).
 
 ## Overall Idea of Distributed Data Parallel
 
-SPMD paradigm is used. Model is copied on each GPU so want an optimized version.
+The single-program, multipel data (SPMD) paradigm is used. That is, the model is copied to each of the GPUs. The input data is divided between the GPUs evenly. After the gradients have been computed they are averaged across all the GPUs. This is done in a way that all replicas have numerically identical values for the average gradients. The weights are then updated and once again they are identical by construction. The process then repeats with new mini-batches sent to the GPUs.
 
 ![ddp](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png)
 

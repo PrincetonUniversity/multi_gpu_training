@@ -31,7 +31,7 @@ Note that we will profile the `train` function using `line_profiler` (see line 3
 def train(args, model, device, train_loader, optimizer, epoch):
 ```
 
-Next, download the data and submit the job:
+Next, download the data while on the login node since the compute nodes do not have internet access:
 
 ```bash
 $ cd multi_gpu_training/01_single_gpu

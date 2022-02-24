@@ -11,15 +11,15 @@ Make sure you can run the Python script `test.py` on Adroit:
 ```bash
 $ ssh <YourNetID>@adroit.princeton.edu  # VPN required if off-campus
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
-$ cd multi_gpu_training/test
-$ module load anaconda3/2021.5
-$ python test.py
-Success
+$ cd multi_gpu_training
+$ module load anaconda3/2021.11
+$ python --version
+Python 3.9.7
 ```
 
 ## Attendance
 
-[https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
+- Please check-in using this link: [https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
 
 ## Workshop Survey
 
@@ -28,7 +28,6 @@ Toward the end of the workshop please complete [this survey](https://forms.gle/p
 ## Reminders
 
 - The live workshop will be recorded
-- Please check-in using this link: [https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
 - Zoom: [https://princeton.zoom.us/my/picscieworkshop](https://princeton.zoom.us/my/picscieworkshop)
 - Request an account on [Adroit](https://forms.rc.princeton.edu/registration/?q=adroit)
 - To use GPUs during the workshop: `#SBATCH --reservation=multigpu`
@@ -40,4 +39,3 @@ If you encounter any difficulties with the material in this guide then please se
 ## Authorship
 
 This guide was created by Jonathan Halverson and members of PICSciE and Research Computing.
-

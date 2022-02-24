@@ -1,6 +1,6 @@
 # TensorFlow
 
-The starting point for [multi-GPU training with Keras](https://www.tensorflow.org/tutorials/distribute/keras) is `tf.distribute.MirroredStrategy`. In this approach, the model is copied to `N` GPUs and gradients are synced. Be sure to use `[tf.data](https://www.tensorflow.org/api_docs/python/tf/data)` to handle data loading.
+The starting point for [multi-GPU training with Keras](https://www.tensorflow.org/tutorials/distribute/keras) is `tf.distribute.MirroredStrategy`. In this approach, the model is copied to `N` GPUs and gradients are synced. Be sure to use [`tf.data`](https://www.tensorflow.org/api_docs/python/tf/data) to handle data loading.
 
 ## Single-Node, Synchronous, Multi-GPU Training
 

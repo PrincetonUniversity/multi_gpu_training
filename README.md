@@ -19,7 +19,7 @@ Python 3.9.7
 
 ## Attendance
 
-- Please check-in using this link: [https://cglink.me/2gi/c1471627125105938](https://cglink.me/2gi/c1471627125105938)
+- Please check-in using [this link](https://cglink.me/2gi/c1471627125105938).
 
 ## Workshop Survey
 
@@ -29,7 +29,7 @@ Toward the end of the workshop please complete [this survey](https://forms.gle/p
 
 - The live workshop will be recorded
 - Zoom: [https://princeton.zoom.us/my/picscieworkshop](https://princeton.zoom.us/my/picscieworkshop)
-- Request an account on [Adroit](https://forms.rc.princeton.edu/registration/?q=adroit)
+- Request an account on [Adroit](https://forms.rc.princeton.edu/registration/?q=adroit) if needed
 - To use GPUs during the workshop: `#SBATCH --reservation=multigpu`
 
 ## Getting Help

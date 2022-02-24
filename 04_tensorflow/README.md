@@ -4,6 +4,8 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 
 ## Single-Node, Synchronous, Multi-GPU Training
 
+### Step 1: Installation
+
 **Skip this step for the live workship.**
 
 Install TensorFlow for the V100 nodes:
@@ -101,7 +103,7 @@ EPOCHS = 12
 model.fit(train_dataset, epochs=EPOCHS, callbacks=callbacks)
 ```
 
-### Step 3: Submit the Job
+### Step 4: Submit the Job
 
 Below is a sample Slurm:
 

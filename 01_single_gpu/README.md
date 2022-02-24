@@ -63,7 +63,7 @@ python mnist_classify.py --epochs=3
 Finally, submit the job:
 
 ```
-$ sbatch job.slurm.single
+$ sbatch job.slurm
 ```
 
 You should find that the code runs in about 64 seconds on a V100 GPU using 1 CPU-core:

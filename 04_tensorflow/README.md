@@ -105,7 +105,7 @@ model.fit(train_dataset, epochs=EPOCHS, callbacks=callbacks)
 
 ### Step 4: Submit the Job
 
-Below is a sample Slurm:
+Below is a sample Slurm script:
 
 ```bash
 #!/bin/bash
@@ -134,5 +134,8 @@ $ sbatch job.slurm
 
 ## Multi-node Training
 
+Look to [MultiWorkerMirroredStrategy](https://www.tensorflow.org/guide/distributed_training#multiworkermirroredstrategy) for using the GPUs on more than one compute node. There is an example for the [Keras API](https://www.tensorflow.org/tutorials/distribute/multi_worker_with_keras). Consider using Horovod instead of this approach (see below).
+
 ## Horovod
 
+[Horovod](https://horovod.ai/) is a is a distributed deep learning training framework for TensorFlow, Keras, PyTorch, and Apache MXNet. It is based on MPI.

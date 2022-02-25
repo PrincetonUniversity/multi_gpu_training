@@ -183,7 +183,6 @@ When using DDP, the total number of tasks must equal the total number of allocat
 
 You should take all of the GPUs on a node before going to multiple nodes. Never do one GPU per node for multinode jobs.
 
-
 ## Full Example of DDP
 
 Below is an example Slurm script for DDP:
@@ -211,12 +210,12 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2021.11
-conda activate /scratch/network/jdh4/CONDA/envs/torch-env
+conda activate torch-env
 
-srun python mnist_classify_ddp.py --epochs=3
+srun python mnist_classify_ddp.py --epochs=2
 ```
 
-The script above uses 2 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 2 full nodes is substantial so the queue time will be quite long. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
+The script above uses 2 nodes with 2 tasks per node and therefore 2 GPUs per node. This yields a total of 4 processes and each process can use 8 CPU-cores for data loading. An allocation of 4 GPUs is substantial so the queue time may be long. In all cases make sure that the GPUs are being used efficiently by monitoring the [GPU utilization](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing).
 
 Below is the original single-GPU Python script modified to use DDP:
 
@@ -391,9 +390,9 @@ Execute the commands below to run the example above:
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
 $ cd multi_gpu_training/02_pytorch_ddp
 $ module load anaconda3/2021.11
-$ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
-$ python download_data.py
-$ sbatch job.slurm
+$ conda activate torch-env  # see 01_single_gpu in this repo for installation directions
+(torch-env) $ python download_data.py
+(torch-env) $ sbatch job.slurm  # edit your email address in job.slurm before submitting
 ```
 
 ## Memory issues

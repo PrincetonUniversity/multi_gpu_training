@@ -57,7 +57,7 @@ module purge
 module load anaconda3/2021.11
 conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 
-python mnist_classify.py --epochs=3
+kernprof -l mnist_classify.py --epochs=3
 ```
 
 Finally, submit the job:

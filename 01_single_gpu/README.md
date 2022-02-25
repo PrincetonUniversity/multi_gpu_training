@@ -15,7 +15,7 @@ $ conda activate torch-env
 (torch-env) $ conda install line_profiler --channel conda-forge
 ```
 
-Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this procedure for single-GPU training which demonstrates [profiling Python](https://researchcomputing.princeton.edu/python-profiling) using `line_profiler`.
+Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) that covers everything on this page for single-GPU training with [profiling Python](https://researchcomputing.princeton.edu/python-profiling) using `line_profiler`.
 
 
 ## Step 2: Run and Profile the Script

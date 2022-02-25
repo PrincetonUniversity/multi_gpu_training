@@ -4,7 +4,7 @@ One should always first try to use only a single GPU for training. This maximize
 - the execution time is too long with a single GPU
 - the model is too large to fit on a single GPU
 
-The more GPUs you request for a Slurm job, the longer the queue time will be. Learn how to conduct a [scaling analysis](https://researchcomputing.princeton.edu/support/knowledge-base/scaling-analysis).
+The more GPUs you request for a Slurm job, the longer the queue time will be. Learn how to conduct a [scaling analysis](https://researchcomputing.princeton.edu/support/knowledge-base/scaling-analysis) to find the optimal number of GPUs.
 
 ## Overall Idea of Distributed Data Parallel
 

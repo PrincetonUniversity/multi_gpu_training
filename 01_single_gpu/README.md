@@ -12,7 +12,7 @@ Follow the directions on our [PyTorch](https://researchcomputing.princeton.edu/s
 
 ```
 $ conda activate torch-env
-(torch-env) $ pip install line-profiler
+(torch-env) $ conda install line_profiler --channel conda-forge
 ```
 
 Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this procedure for single-GPU training which demonstrates [profiling Python](https://researchcomputing.princeton.edu/python-profiling) using `line_profiler`.

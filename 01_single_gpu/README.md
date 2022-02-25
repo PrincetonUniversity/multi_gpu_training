@@ -130,7 +130,7 @@ Make sure you optimize the single GPU case before going to multiple GPUs by work
 
 One technique that was discussed in the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html) was using multiple CPU-cores to speed-up data loading. Let's put this into practice.
 
-In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm.single` change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change?
+In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm` change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change?
 
 ![multiple_workers](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca4eff975d80.png)
 

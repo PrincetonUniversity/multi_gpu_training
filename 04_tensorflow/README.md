@@ -20,7 +20,7 @@ $ conda create --name tf2-gpu tensorflow-gpu tensorflow-datasets -y
 
 ```
 $ module load anaconda3/2021.11
-$ conda activate /scratch/network/jdh4/CONDA/envs/tf2-gpu
+$ conda activate tf2-gpu
 $ python
 Python 3.9.7 (default, Sep 16 2021, 13:09:58) 
 [GCC 7.5.0] :: Anaconda, Inc. on linux
@@ -117,11 +117,13 @@ Below is a sample Slurm script:
 #SBATCH --mem=64G                # total memory per node (4G per cpu-core is default)
 #SBATCH --gres=gpu:2             # number of gpus per node
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
-#SBATCH --reservation=multigpu   # REMOVE THIS LINE AFTER THE WORKSHOP
+#SBATCH --mail-type=begin        # send email when job begins
+#SBATCH --mail-type=end          # send email when job ends
+#SBATCH --mail-user=<YourNetID>@princeton.edu
 
 module purge
 module load anaconda3/2021.11
-conda activate /scratch/network/jdh4/CONDA/envs/tf2-gpu
+conda activate tf2-gpu
 
 python mnist_classify.py
 ```

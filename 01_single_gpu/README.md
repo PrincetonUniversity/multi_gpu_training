@@ -32,7 +32,7 @@ def train(args, model, device, train_loader, optimizer, epoch):
 Next, download the data while on the login node since the compute nodes do not have internet access:
 
 ```bash
-$ cd multi_gpu_training/01_single_gpu
+(torch-env) $ cd multi_gpu_training/01_single_gpu
 (torch-env) $ python download_data.py
 ```
 
@@ -61,10 +61,11 @@ kernprof -l mnist_classify.py --epochs=3
 Finally, submit the job:
 
 ```
+# edit job.slurm to include your email address
 $ sbatch job.slurm
 ```
 
-You should find that the code runs in about 64 seconds on a V100 GPU using 1 CPU-core:
+You should find that the code runs in about 1 minute on a V100 GPU using 1 CPU-core:
 
 ```
 $ seff 1268057

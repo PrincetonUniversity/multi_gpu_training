@@ -36,7 +36,7 @@ Next, download the data while on the login node since the compute nodes do not h
 (torch-env) $ python download_data.py
 ```
 
-Notice in the Slurm script (see below) that a specific Conda environment belonging to jdh4 is used. This environment was created using the directions on the PyTorch RC webpage with the addition of line_profiler.
+Below is the Slurm script:
 
 ```bash
 #!/bin/bash

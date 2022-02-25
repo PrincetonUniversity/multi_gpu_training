@@ -17,9 +17,9 @@ seed_everything(7)
 
 BATCH_SIZE = 256
 PATH_DATASETS = os.environ.get("PATH_DATASETS", ".")
-NUM_WORKERS   = int(os.environ["SLURM_CPUS_PER_TASK"])
-NUM_NODES     = int(os.environ["SLURM_NNODES"])
-GPUS_PER_NODE = int(os.environ["SLURM_GPUS_ON_NODE"])
+NUM_WORKERS = int(os.environ["SLURM_CPUS_PER_TASK"])
+NUM_NODES = int(os.environ["SLURM_NNODES"])
+ALLOCATED_GPUS_PER_NODE = int(os.environ["SLURM_GPUS_ON_NODE"])
 
 train_transforms = torchvision.transforms.Compose(
     [
@@ -110,7 +110,7 @@ model = LitResnet(lr=0.05)
 model.datamodule = cifar10_dm
 
 trainer = Trainer(
-    gpus=GPUS_PER_NODE,
+    gpus=ALLOCATED_GPUS_PER_NODE,
     num_nodes=NUM_NODES,
     strategy='ddp',
     precision=32,

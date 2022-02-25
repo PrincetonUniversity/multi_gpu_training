@@ -125,13 +125,13 @@ Note that GPU utilization as measured using nvidia-smi is only a measure of the 
 
 ## Step 3: Work through the Performance Tuning Guide
 
-Make sure you optimize the single GPU case before going to multiple GPUs by working through the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html). You should also profile your code using  or another tools like dlprof.
+Make sure you optimize the single GPU case before going to multiple GPUs by working through the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html).
 
 ## Step 4: Optimize Your Script
 
 One technique that was discussed in the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html) was using multiple CPU-cores to speed-up data loading. Let's put this into practice.
 
-In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm` change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change?
+In `mnist_classify.py`, change `num_workers` from 1 to 8. And then in `job.slurm` change `--cpus-per-task` from 1 to 8. Then run the script again and note the speed-up. How did the profiling data change? Watch the [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) for the solution.
 
 ![multiple_workers](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca4eff975d80.png)
 
@@ -141,4 +141,4 @@ Consider these external data loading libraries: [ffcv](https://github.com/libffc
 
 ## Summary
 
-It is essential to optimize your code before going to multi-GPU training since the inefficiencies will only be magnified otherwise. The more GPUs you request in a Slurm job, the longer you will wait for the job to run. Don't waste resources. Optimize your code and then scale it. Next, we focus on scaling the code to multiple GPUs.
+It is essential to optimize your code before going to multi-GPU training since the inefficiencies will only be magnified otherwise. The more GPUs you request in a Slurm job, the longer you will wait for the job to run. Don't waste resources. Optimize your code and then scale it. Next, we focus on scaling the code to multiple GPUs ([next section](../02_pytorch_ddp)).

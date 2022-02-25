@@ -8,7 +8,7 @@ The more GPUs you request for a Slurm job, the longer the queue time will be. Le
 
 ## Overall Idea of Distributed Data Parallel
 
-The single-program, multipel data (SPMD) paradigm is used. That is, the model is copied to each of the GPUs. The input data is divided between the GPUs evenly. After the gradients have been computed they are averaged across all the GPUs. This is done in a way that all replicas have numerically identical values for the average gradients. The weights are then updated and once again they are identical by construction. The process then repeats with new mini-batches sent to the GPUs.
+The single-program, multiple data (SPMD) paradigm is used. That is, the model is copied to each of the GPUs. The input data is divided between the GPUs evenly. After the gradients have been computed they are averaged across all the GPUs. This is done in a way that all replicas have numerically identical values for the average gradients. The weights are then updated and once again they are identical by construction. The process then repeats with new mini-batches sent to the GPUs.
 
 ![ddp](https://www.telesens.co/wp-content/uploads/2019/04/img_5ca570946ee1c.png)
 
@@ -161,7 +161,7 @@ gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
 local_rank = rank - gpus_per_node * (rank // gpus_per_node)
 ```
 
-The `local_rank` shoud be used everywhere in your script except when initializing the DDP process group where `rank` should be used. In Python, one uses the  `//` operator for integer division. For example, `1 / 2 = 0.5` while `1 // 2 = 0`.
+The `local_rank` should be used everywhere in your script except when initializing the DDP process group where `rank` should be used. In Python, one uses the  `//` operator for integer division. For example, `1 / 2 = 0.5` while `1 // 2 = 0`.
 
 # DDP and Slurm
 

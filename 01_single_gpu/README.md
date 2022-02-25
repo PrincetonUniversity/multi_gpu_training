@@ -62,7 +62,7 @@ Finally, submit the job:
 
 ```
 # edit job.slurm to include your email address
-$ sbatch job.slurm
+(torch-env) $ sbatch job.slurm
 ```
 
 You should find that the code runs in about 1 minute on a V100 GPU using 1 CPU-core:

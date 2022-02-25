@@ -145,6 +145,8 @@ srun python myscript.py
 
 In the script above, `MASTER_PORT`, `MASTER_ADDR` and `WORLD_SIZE` are set. The three are later used to create the DDP process group. The total number of GPUs allocated to the job must be equal to `WORLD_SIZE` -- this is satisfied above since nodes times ntasks-per-node is `2 x 2 = 4` and number of GPUs allocated is nodes times gpus_per_node which is also `2 x 2 = 4`.
 
+### Job Arrays
+
 For a job array, all jobs of the array have the same value of `SLURM_JOBID`. Because of this, it is wise to modify `MASTER_PORT`. Here is one possibility:
 
 ```

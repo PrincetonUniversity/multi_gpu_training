@@ -8,7 +8,7 @@ This tutorial uses PyTorch but the steps are the similar for TensorFlow. See our
 
 ## Step 1: Installation
 
-Follow the directions on our [PyTorch](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch) webpage. With your Conda environment still active, you can install the profiler with:
+Follow the directions on our [PyTorch](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch) webpage to install PyTorch. Then activate the environment and install the profiler:
 
 ```
 $ conda activate torch-env

@@ -6,9 +6,7 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 
 ### Step 1: Installation
 
-**Skip this step for the live workship.**
-
-Install TensorFlow for the V100 nodes:
+Install TensorFlow for the V100 nodes on Adroit (see [these directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) for all other cases):
 
 ```bash
 $ ssh <YourNetID>@adroit.princeton.edu
@@ -19,12 +17,9 @@ $ conda create --name tf2-gpu tensorflow-gpu tensorflow-datasets -y
 ### Step 2: Download the Data
 
 ```
-$ module load anaconda3/2021.11
 $ conda activate tf2-gpu
-$ python
-Python 3.9.7 (default, Sep 16 2021, 13:09:58) 
-[GCC 7.5.0] :: Anaconda, Inc. on linux
-Type "help", "copyright", "credits" or "license" for more information.
+(tf2-gpu) $ cd multi_gpu_training/04_tensorflow
+(tf2-gpu) $ python
 >>> import tensorflow_datasets as tfds
 >>> datasets, info = tfds.load(name='mnist', with_info=True, as_supervised=True)
 >>> exit()
@@ -131,8 +126,7 @@ python mnist_classify.py
 Note that `srun` is not called and there is only one task. Submit the job as follows:
 
 ```
-$ cd multi_gpu_training/04_tensorflow
-$ sbatch job.slurm
+(tf2-gpu) $ sbatch job.slurm
 ```
 
 ## Multi-node Training

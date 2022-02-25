@@ -8,14 +8,12 @@ This tutorial uses PyTorch but the steps are the similar for TensorFlow. See our
 
 ## Step 1: Installation
 
-**You do not need to install anything!** Throughout the live workshop we will use the following Conda environment:
+Follow the directions on our [PyTorch](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch) webpage. With your Conda environment still active, you can install the profiler with:
 
-```bash
-module load anaconda3/2021.11
-conda activate /scratch/network/jdh4/CONDA/envs/torch-env
 ```
-
-After the workshop, see the installation directions for [PyTorch](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch). See the [example job](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch#example) on that webpage. During this workshop we will extend the MNIST example to use multiple GPUs.
+$ conda activate torch-env
+(torch-env) $ pip install line-profiler
+```
 
 Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) of this procedure for single-GPU training which demonstrates [profiling Python](https://researchcomputing.princeton.edu/python-profiling) using `line_profiler`.
 

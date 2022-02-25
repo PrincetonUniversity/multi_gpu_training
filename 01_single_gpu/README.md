@@ -33,9 +33,7 @@ Next, download the data while on the login node since the compute nodes do not h
 
 ```bash
 $ cd multi_gpu_training/01_single_gpu
-$ module load anaconda3/2021.11
-$ conda activate /scratch/network/jdh4/CONDA/envs/torch-env
-$ python download_data.py
+(torch-env) $ python download_data.py
 ```
 
 Notice in the Slurm script (see below) that a specific Conda environment belonging to jdh4 is used. This environment was created using the directions on the PyTorch RC webpage with the addition of line_profiler.
@@ -49,11 +47,13 @@ Notice in the Slurm script (see below) that a specific Conda environment belongi
 #SBATCH --mem=8G                 # total memory per node (4 GB per cpu-core is default)
 #SBATCH --gres=gpu:1             # number of gpus per node
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
-#SBATCH --reservation=multigpu   # REMOVE THIS LINE AFTER THE WORKSHOP
+#SBATCH --mail-type=begin        # send email when job begins
+#SBATCH --mail-type=end          # send email when job ends
+#SBATCH --mail-user=<YourNetID>@princeton.edu
 
 module purge
 module load anaconda3/2021.11
-conda activate /scratch/network/jdh4/CONDA/envs/torch-env
+conda activate torch-env
 
 kernprof -l mnist_classify.py --epochs=3
 ```
@@ -87,7 +87,7 @@ Some variation in the run time is expected when multiple users are running on th
 We installed [line_profiler](https://researchcomputing.princeton.edu/python-profiling) into the Conda environment and profiled the code. To analyze the profiling data:
 
 ```
-$ python -m line_profiler mnist_classify.py.lprof 
+(torch-env) $ python -m line_profiler mnist_classify.py.lprof 
 Timer unit: 1e-06 s
 
 Total time: 48.428 s

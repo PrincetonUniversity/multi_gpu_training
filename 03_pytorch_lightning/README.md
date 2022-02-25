@@ -9,8 +9,6 @@ Once these changes have been made one can simply choose how many nodes or GPUs t
 
 ## Installation
 
-**You do not need to do this for the live workshop!**
-
 Della-GPU or Adroit (A100):
 
 ```bash
@@ -229,15 +227,13 @@ trainer.test(model, datamodule=cifar10_dm)
 
 ### Step 1: Installation
 
-**You can skip this step during the live workshop.**
-
 Create the following Conda environment:
 
 ```
 $ module load anaconda3/2021.11
 $ conda create --name bolts python=3.9 -y
 $ conda activate bolts
-$ pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 pytorch-lightning lightning-bolts -f https://download.pytorch.org/whl/torch_stable.html
+(bolts) $ pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 pytorch-lightning lightning-bolts -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 ### Step 2: Download the data
@@ -246,16 +242,14 @@ The compute nodes do not have internet access so download the data on the login 
 
 ```
 $ cd multi_gpu_training/03_pytorch_lightning/multi
-$ module load anaconda3/2021.11
-$ conda activate /scratch/network/jdh4/CONDA/envs/bolts
-$ python download_cifar10.py
+(bolts) $ python download_cifar10.py
 ```
 
 ### Step 3: Submit the Job
 
 Below is the Slurm script:
 
-```
+```bash
 #!/bin/bash
 #SBATCH --job-name=myjob         # create a short name for your job
 #SBATCH --nodes=1                # node count
@@ -264,12 +258,14 @@ Below is the Slurm script:
 #SBATCH --mem-per-cpu=4G         # memory per cpu-core (4G per cpu-core is default)
 #SBATCH --time=1:00:00           # total run time limit (HH:MM:SS)
 #SBATCH --gres=gpu:2             # number of gpus per node
-#SBATCH --constraint=a100
-#SBATCH --reservation=multigpu   # REMOVE THIS LINE AFTER THE WORKSHOP
+#SBATCH --mail-type=begin        # send email when job begins
+#SBATCH --mail-type=end          # send email when job ends
+#SBATCH --mail-user=<YourNetID>@princeton.edu
+#SBATCH --constraint=a100        # ADROIT ONLY
 
 module purge
 module load anaconda3/2021.11
-conda activate /scratch/network/jdh4/CONDA/envs/bolts
+conda activate bolts
 
 export PL_TORCH_DISTRIBUTED_BACKEND=gloo
 
@@ -278,13 +274,13 @@ srun python myscript.py
 
 Submit the job:
 
-```
-$ sbatch job.slurm
+```bash
+$ sbatch job.slurm  # edit your email address in job.slurm before submitting
 ```
 
 By default, DDP uses "nccl" as its backend. The code was found to hang so "gloo" was used.
 
-How does the training time decrease in going from 1, 2 to 4 GPUs? What happens if you use `precision=16`?
+How does the training time decrease in going from 1 to 2 to 4 GPUs? What happens if you use `precision=16`?
 
 ## Numerical Precision
 

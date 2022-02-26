@@ -140,4 +140,4 @@ Consider these external data loading libraries: [ffcv](https://github.com/libffc
 
 ## Summary
 
-It is essential to optimize your code before going to multi-GPU training since the inefficiencies will only be magnified otherwise. The more GPUs you request in a Slurm job, the longer you will wait for the job to run. Don't waste resources. Optimize your code and then scale it. Next, we focus on scaling the code to multiple GPUs ([next section](../02_pytorch_ddp)).
+It is essential to optimize your code before going to multi-GPU training since the inefficiencies will only be magnified otherwise. The more GPUs you request in a Slurm job, the longer you will wait for the job to run. Don't waste resources. Optimize your code and then scale it. Next, we focus on scaling the code to multiple GPUs (go to [next section](../02_pytorch_ddp)).

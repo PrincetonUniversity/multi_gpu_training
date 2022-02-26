@@ -122,11 +122,11 @@ Use tools like [jobstats](https://researchcomputing.princeton.edu/support/knowle
 
 Note that GPU utilization as measured using nvidia-smi is only a measure of the fraction of the time that a GPU kernel is running on the GPU. It says nothing about how many CUDA cores are being used or how efficiently the GPU kernels have been written. However, for codes used by large communities, one can generally associate GPU utilization with overall GPU efficiency. For a more accurate measure of GPU utilization, use [Nsight Systems or Nsight Compute](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing#profiling) to measure the occupancy.
 
-## Step 3: Work through the Performance Tuning Guide
+## Step 4: Work through the Performance Tuning Guide
 
 Make sure you optimize the single GPU case before going to multiple GPUs by working through the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html).
 
-## Step 4: Optimize Your Script
+## Step 5: Optimize Your Script
 
 One technique that was discussed in the [Performance Tuning Guide](https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html) was using multiple CPU-cores to speed-up data loading. Let's put this into practice.
 

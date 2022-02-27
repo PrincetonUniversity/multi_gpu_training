@@ -6,22 +6,26 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 
 ### Step 1: Installation
 
-Install TensorFlow for the V100 nodes on Adroit (see [these directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) for all other cases):
+Install TensorFlow for the V100 nodes on Adroit (see [these directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) for all other cases including the A100 node on Adroit):
 
 ```bash
 $ ssh <YourNetID>@adroit.princeton.edu
 $ module load anaconda3/2021.11
-$ conda create --name tf2-gpu tensorflow-gpu tensorflow-datasets -y
+$ conda create --name tf2-v100 tensorflow-gpu tensorflow-datasets --channel conda-forge -y
 ```
 
 ### Step 2: Download the Data
 
+This example using the `cassava` dataset which requires X GB of storage space. You should do this on `/scratch/network` or `/scratch/gpfs` and not in `/home.`
+
+Run the commands below to download the data (1.6 GB uncompressed):
+
 ```
-$ conda activate tf2-gpu
-(tf2-gpu) $ cd multi_gpu_training/04_tensorflow
-(tf2-gpu) $ python
+$ conda activate tf2-v100
+(tf2-v100) $ cd multi_gpu_training/04_tensorflow
+(tf2-v100) $ python
 >>> import tensorflow_datasets as tfds
->>> datasets, info = tfds.load(name='mnist', with_info=True, as_supervised=True)
+>>> tfds.load(name='mnist', with_info=True, as_supervised=True)
 >>> exit()
 ```
 

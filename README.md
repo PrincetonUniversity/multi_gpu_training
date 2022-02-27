@@ -17,6 +17,7 @@ $ python --version
 Python 3.9.7
 ```
 
+<!--
 ## Attendance
 
 - Please check-in using [this link](https://cglink.me/2gi/c1471627125105938).
@@ -24,6 +25,7 @@ Python 3.9.7
 ## Workshop Survey
 
 Toward the end of the workshop please complete [this survey](https://forms.gle/pGi2tkzb7WCtVMcQ6).
+-->
 
 ## Reminders
 

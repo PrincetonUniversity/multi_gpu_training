@@ -22,9 +22,9 @@ This example using the `cassava` dataset which requires 4 GB of storage space. Y
 Run the commands below to download the data (4 GB in size):
 
 ```
+$ cd multi_gpu_training/04_tensorflow
 $ conda activate tf2-v100
-(tf2-v100) $ cd multi_gpu_training/04_tensorflow
-(tf2-v100) $ python -c "import tensorflow_datasets; tfds.load(name='cassava', with_info=True, as_supervised=True, data_dir='.')"
+(tf2-v100) $ python download_cassava.py
 ```
 
 ### Step 3: Inspect the Script

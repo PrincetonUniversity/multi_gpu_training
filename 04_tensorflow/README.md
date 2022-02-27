@@ -34,73 +34,70 @@ $ conda activate tf2-v100
 Below is the contents of `mnist_classify.py`:
 
 ```python
+import argparse
+import os
 import tensorflow_datasets as tfds
 import tensorflow as tf
+from time import perf_counter
 
-import os
-
-print(tf.__version__)
-
-datasets, info = tfds.load(name='mnist', with_info=True, as_supervised=True)
-mnist_train, mnist_test = datasets['train'], datasets['test']
-
-# multiple GPUs on a single machine
-strategy = tf.distribute.MirroredStrategy()
-print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
-
-num_train_examples = info.splits['train'].num_examples
-num_test_examples = info.splits['test'].num_examples
-
-BUFFER_SIZE = 10000
-
-BATCH_SIZE_PER_REPLICA = 64
-BATCH_SIZE = BATCH_SIZE_PER_REPLICA * strategy.num_replicas_in_sync
-
-def scale(image, label):
-  image = tf.cast(image, tf.float32)
-  image /= 255
-
+def preprocess_data(image, label):
+  image = tf.image.resize(image, (300, 300))
+  image = tf.cast(image, tf.float32) / 255.0
   return image, label
 
-train_dataset = mnist_train.map(scale).cache().shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
-eval_dataset = mnist_test.map(scale).batch(BATCH_SIZE)
+def create_dataset(batch_size_per_replica, datasets, strategy):
+  batch_size = batch_size_per_replica * strategy.num_replicas_in_sync
+  return datasets['train'].map(preprocess_data, num_parallel_calls=tf.data.AUTOTUNE) \
+                          .cache() \
+                          .shuffle(1000) \
+                          .batch(batch_size) \
+                          .prefetch(tf.data.AUTOTUNE)
 
-with strategy.scope():
-  model = tf.keras.Sequential([
-      tf.keras.layers.Conv2D(32, 3, activation='relu', input_shape=(28, 28, 1)),
-      tf.keras.layers.MaxPooling2D(),
-      tf.keras.layers.Flatten(),
-      tf.keras.layers.Dense(64, activation='relu'),
-      tf.keras.layers.Dense(10)
-  ])
+def create_model(num_classes):
+  base_model = tf.keras.applications.ResNet50(weights="imagenet", include_top=False)
+  x = base_model.output
+  x = tf.keras.layers.GlobalAveragePooling2D()(x)
+  x = tf.keras.layers.Dense(1016, activation="relu")(x)
+  predictions = tf.keras.layers.Dense(num_classes, activation="softmax")(x)
+  model = tf.keras.Model(inputs=base_model.input, outputs=predictions)
+  return model
 
-  model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-                optimizer=tf.keras.optimizers.Adam(),
-                metrics=['accuracy'])
+def train(epochs, num_classes, train_dataset, strategy):
+  with strategy.scope():
+    model = create_model(num_classes)
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
+                  metrics=['accuracy'])
 
-# Define a function for decaying the learning rate.
-# You can define any decay function you need.
-def decay(epoch):
-  if epoch < 3:
-    return 1e-3
-  elif epoch >= 3 and epoch < 7:
-    return 1e-4
-  else:
-    return 1e-5
+    start_time = perf_counter()
+    model.fit(train_dataset, epochs=epochs)
+    print("Training time:", perf_counter() - start_time)
+  return None
 
-# Define a callback for printing the learning rate at the end of each epoch.
-class PrintLR(tf.keras.callbacks.Callback):
-  def on_epoch_end(self, epoch, logs=None):
-    print('\nLearning rate for epoch {} is {}'.format(epoch + 1,
-                                                      model.optimizer.lr.numpy()))
+def print_info(num_replicas_in_sync, batch_size_per_replica, info, num_classes):
+  print(f'TF Version: {tf.__version__}')
+  print(f'Number of GPUs: {num_replicas_in_sync}')
+  print(f'Batch size per GPU: {batch_size_per_replica}')
+  print(f'Train records: {info.splits["train"].num_examples}')
+  print(f'Test records:  {info.splits["test"].num_examples}')
+  print(f'Number of classes: {num_classes}')
+  return None
 
-callbacks = [
-    tf.keras.callbacks.LearningRateScheduler(decay),
-    PrintLR()
-]
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser(description='Multi-GPU Training Example')
+  parser.add_argument('--batch-size-per-replica', type=int, default=32, metavar='N',
+                      help='input batch size for training (default: 32)')
+  parser.add_argument('--epochs', type=int, default=15, metavar='N',
+                      help='number of epochs to train (default: 15)')
+  args = parser.parse_args()
+  
+  datasets, info = tfds.load(name='cassava', with_info=True, as_supervised=True, data_dir=".")
+  num_classes = info.features["label"].num_classes
 
-EPOCHS = 12
-model.fit(train_dataset, epochs=EPOCHS, callbacks=callbacks)
+  strategy = tf.distribute.MirroredStrategy()
+  print_info(strategy.num_replicas_in_sync, args.batch_size_per_replica, info, num_classes)
+  train_dataset = create_dataset(args.batch_size_per_replica, datasets, strategy)
+  train(args.epochs, num_classes, train_dataset, strategy)
 ```
 
 ### Step 4: Submit the Job
@@ -115,7 +112,7 @@ Below is a sample Slurm script:
 #SBATCH --cpus-per-task=16       # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH --mem=64G                # total memory per node (4G per cpu-core is default)
 #SBATCH --gres=gpu:2             # number of gpus per node
-#SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
+#SBATCH --time=00:20:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
 #SBATCH --mail-user=<YourNetID>@princeton.edu
@@ -124,7 +121,7 @@ module purge
 module load anaconda3/2021.11
 conda activate tf2-v100
 
-python cassava_classify.py
+python cassava_classify.py --batch-size-per-replica=32 --epochs=15
 ```
 
 Note that `srun` is not called and there is only one task. Submit the job as follows:

@@ -127,7 +127,7 @@ python cassava_classify.py --batch-size-per-replica=32 --epochs=15
 Note that `srun` is not called and there is only one task. Submit the job as follows:
 
 ```
-(tf2-gpu) $ sbatch job.slurm
+(tf2-v100) $ sbatch job.slurm
 ```
 
 ### Performance

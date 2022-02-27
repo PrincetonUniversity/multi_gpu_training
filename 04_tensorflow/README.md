@@ -4,6 +4,8 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 
 ## Single-Node, Synchronous, Multi-GPU Training
 
+Here were train the ResNet-50 model on the Cassava dataset (see [video](https://www.youtube.com/watch?v=xzSCvXDcX68) on TensorFlow YouTube channel).
+
 ### Step 1: Installation
 
 Install TensorFlow for the V100 nodes on Adroit (see [these directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) for all other cases including the A100 node on Adroit):
@@ -24,7 +26,7 @@ Run the commands below to download the data (4 GB in size):
 ```
 $ cd multi_gpu_training/04_tensorflow
 $ conda activate tf2-v100
-(tf2-v100) $ python download_cassava.py
+(tf2-v100) $ python download_data_and_weights.py
 ```
 
 ### Step 3: Inspect the Script
@@ -129,6 +131,31 @@ Note that `srun` is not called and there is only one task. Submit the job as fol
 
 ```
 (tf2-gpu) $ sbatch job.slurm
+```
+
+### Performance
+
+The training time is shown below for different choices of cpus-per-task and the number of GPUs:
+
+| nodes        | ntasks         | cpu-per-task  | GPUs    | Training Time (s) |
+| ------------- |:-------------:| -------------:|---------| ----------------- |
+| 1             |     1         | 4            |  1       | 56.2              |
+| 1             |     1         | 8            |  1       | 51.5              |
+| 1             |     1         | 16           |  1       | 48.8              |
+| 1             |     1         | 32           |  1       | 50.1              |
+| 1             |     1         | 4            |  2       | 50.3              |
+| 1             |     1         | 8            |  2       | 45.6              |
+| 1             |     1         | 16           |  2       | 54.1              |
+| 1             |     1         | 4            |  4       | 53.2              |
+| 1             |     1         | 8            |  4       | 49.0              |
+| 1             |     1         | 16           |  4       | 46.7              |
+| 1             |     1         | 32           |  4       | 57.7              |
+
+All runs were done on adroit-h11g1 while making certain that no other jobs were running on the node:
+
+```
+#SBATCH --mem=770000M
+#SBATCH --nodelist=adroit-h11g1
 ```
 
 ## Multi-node Training

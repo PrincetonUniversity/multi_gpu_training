@@ -107,7 +107,7 @@ Below is a sample Slurm script:
 
 ```bash
 #!/bin/bash
-#SBATCH --job-name=tf2-multi     # create a short name for your job
+#SBATCH --job-name=cassava       # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=16       # cpu-cores per task (>1 if multi-threaded tasks)
@@ -120,9 +120,9 @@ Below is a sample Slurm script:
 
 module purge
 module load anaconda3/2021.11
-conda activate tf2-gpu
+conda activate tf2-v100
 
-python mnist_classify.py
+python cassava_classify.py
 ```
 
 Note that `srun` is not called and there is only one task. Submit the job as follows:

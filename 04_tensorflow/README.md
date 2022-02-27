@@ -17,9 +17,9 @@ $ conda create --name tf2-v100 tensorflow-gpu tensorflow-datasets --channel cond
 
 ### Step 2: Download the Data
 
-This example using the `cassava` dataset which requires X GB of storage space. You should do this on `/scratch/network/<YourNetID>` or `/scratch/gpfs/<YourNetID>` and not in `/home.`
+This example using the `cassava` dataset which requires 4 GB of storage space. You should do this on `/scratch/network/<YourNetID>` or `/scratch/gpfs/<YourNetID>` and not in `/home.`
 
-Run the commands below to download the data (1.6 GB uncompressed):
+Run the commands below to download the data (4 GB in size):
 
 ```
 $ conda activate tf2-v100

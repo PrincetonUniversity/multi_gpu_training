@@ -24,10 +24,7 @@ Run the commands below to download the data (1.6 GB uncompressed):
 ```
 $ conda activate tf2-v100
 (tf2-v100) $ cd multi_gpu_training/04_tensorflow
-(tf2-v100) $ python
->>> import tensorflow_datasets as tfds
->>> tfds.load(name='mnist', with_info=True, as_supervised=True)
->>> exit()
+(tf2-v100) $ python -c "import tensorflow_datasets; tfds.load(name='cassava', with_info=True, as_supervised=True, data_dir='.')"
 ```
 
 ### Step 3: Inspect the Script

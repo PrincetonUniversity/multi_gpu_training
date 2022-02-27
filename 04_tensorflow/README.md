@@ -9,6 +9,7 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 Install TensorFlow for the V100 nodes on Adroit (see [these directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) for all other cases including the A100 node on Adroit):
 
 ```bash
+# procedure for adroit v100 nodes only
 $ ssh <YourNetID>@adroit.princeton.edu
 $ module load anaconda3/2021.11
 $ conda create --name tf2-v100 tensorflow-gpu tensorflow-datasets --channel conda-forge -y

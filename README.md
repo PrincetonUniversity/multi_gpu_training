@@ -13,7 +13,7 @@ $ ssh <YourNetID>@adroit.princeton.edu  # VPN required if off-campus
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
 $ cd multi_gpu_training
 $ module load anaconda3/2021.11
-$ python --version
+(base) $ python --version
 Python 3.9.7
 ```
 

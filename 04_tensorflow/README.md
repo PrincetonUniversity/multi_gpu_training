@@ -132,21 +132,26 @@ Note that `srun` is not called and there is only one task. Submit the job as fol
 
 ### Performance
 
+
+         1280399   COMPLETED 2022-03-01T13:14:52    00:04:28    00:20:00      1     4    770000M        gpu  cassava 
+         1280413   COMPLETED 2022-03-01T13:21:28    00:04:23    00:20:00      1     8    770000M        gpu  cassava 
+         1280416   COMPLETED 2022-03-01T13:26:15    00:04:21    00:20:00      1    16    770000M        gpu  cassava 
+         1280454     PENDING             Unknown    00:00:00    00:20:00      1     4    770000M        gpu  cassava 
+
 The training time is shown below for different choices of cpus-per-task and the number of GPUs:
 
-| nodes        | ntasks         | cpu-per-task  | GPUs    | Training Time (s) |
-| ------------- |:-------------:| -------------:|---------| ----------------- |
-| 1             |     1         | 4            |  1       | 56.2              |
-| 1             |     1         | 8            |  1       | 51.5              |
-| 1             |     1         | 16           |  1       | 48.8              |
-| 1             |     1         | 32           |  1       | 50.1              |
-| 1             |     1         | 4            |  2       | 50.3              |
-| 1             |     1         | 8            |  2       | 45.6              |
-| 1             |     1         | 16           |  2       | 54.1              |
-| 1             |     1         | 4            |  4       | 53.2              |
-| 1             |     1         | 8            |  4       | 49.0              |
-| 1             |     1         | 16           |  4       | 46.7              |
-| 1             |     1         | 32           |  4       | 57.7              |
+| nodes         | ntasks        | cpu-per-task | GPUs     | Training Time (s) |
+| ------------- |:-------------:| ------------:|----------| ----------------- |
+| 1             |     1         | 4            |  1       | xxx              |
+| 1             |     1         | 4            |  2       | 367              |
+| 1             |     1         | 8            |  2       | 344              |
+| 1             |     1         | 16           |  2       | 343              |
+| 1             |     1         | 4            |  3       | 268              |
+| 1             |     1         | 8            |  3       | 263              |
+| 1             |     1         | 16           |  3       | 261              |
+| 1             |     1         | 8            |  4       | 233              |
+| 1             |     1         | 16           |  4       | 228              |
+| 1             |     1         | 32           |  4       | 233              |
 
 All runs were done on adroit-h11g1 while making certain that no other jobs were running on the node:
 

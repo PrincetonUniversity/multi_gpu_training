@@ -33,9 +33,9 @@ def train(epochs, num_classes, train_dataset, strategy):
                   optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
                   metrics=['accuracy'])
 
-    start_time = perf_counter()
-    model.fit(train_dataset, epochs=epochs)
-    print("Training time:", perf_counter() - start_time)
+  start_time = perf_counter()
+  model.fit(train_dataset, epochs=epochs)
+  print("Training time:", perf_counter() - start_time)
   return None
 
 def print_info(num_replicas_in_sync, batch_size_per_replica, info, num_classes):
@@ -50,7 +50,7 @@ def print_info(num_replicas_in_sync, batch_size_per_replica, info, num_classes):
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Multi-GPU Training Example')
   parser.add_argument('--batch-size-per-replica', type=int, default=32, metavar='N',
-                      help='input batch size for training (default: 32)')
+                      help='input batch size per GPU for training (default: 32)')
   parser.add_argument('--epochs', type=int, default=15, metavar='N',
                       help='number of epochs to train (default: 15)')
   args = parser.parse_args()

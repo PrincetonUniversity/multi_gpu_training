@@ -136,6 +136,7 @@ The training time is shown below for different choices of `cpus-per-task` and th
 
 | nodes         | ntasks        | cpus-per-task | GPUs    | Training Time (s) |  Mean GPU Utilization (%) |
 |:-------------:|:-------------:|:------------:|:--------:|:-----------------:|:-------------------------:|
+| 1             |     1         | 2            |  1       | 574               | 85 |
 | 1             |     1         | 4            |  1       | 565               | 83 |
 | 1             |     1         | 8            |  1       | 562               | 89 |
 | 1             |     1         | 16           |  1       | 564               | 90 |
@@ -151,6 +152,10 @@ The training time is shown below for different choices of `cpus-per-task` and th
 | 1             |     1         | 32           |  4       | 218               | 63 |
 
 "Training Time" in the table above is the time to run `model.fit(train_dataset, epochs=epochs)`. "Mean GPU utilization" was taken from the output of the `jobstats` command.
+
+The figure below shows the speed-up as a function of the number of GPUs. The dashed line shows the maximum possible speed-up.
+
+![Speed-up](speedup_vs_gpus.png)
 
 All runs were done on adroit-h11g1 while making certain that no other jobs were running on the node:
 

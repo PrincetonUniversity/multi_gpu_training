@@ -136,19 +136,19 @@ The training time is shown below for different choices of `cpus-per-task` and th
 
 | nodes         | ntasks        | cpus-per-task | GPUs    | Training Time (s) |  Mean GPU Utilization (%) |
 |:-------------:|:-------------:|:------------:|:--------:|:-----------------:|:-------------------------:|
-| 1             |     1         | 4            |  1       |                   |  |
-| 1             |     1         | 8            |  1       | xxx               |  |
-| 1             |     1         | 16           |  1       | xxx               |  |
-| 1             |     1         | 4            |  2       | 367 (339)         |  |
-| 1             |     1         | 8            |  2       | 344 (334)         |  |
-| 1             |     1         | 16           |  2       | 343 (332)         |  |
-| 1             |     1         | 4            |  3       | 268 (256)         |  |
-| 1             |     1         | 8            |  3       | 263 (251)         |  |
-| 1             |     1         | 16           |  3       | 261 (249)         |  |
-| 1             |     1         | 4            |  4       | xxx (xxx)         |  |
-| 1             |     1         | 8            |  4       | 233 (220)         |  |
-| 1             |     1         | 16           |  4       | 228 (214)         |  |
-| 1             |     1         | 32           |  4       | 233 (218)         |  |
+| 1             |     1         | 4            |  1       | 565               | 83 |
+| 1             |     1         | 8            |  1       | 562               | 89 |
+| 1             |     1         | 16           |  1       |                |  |
+| 1             |     1         | 4            |  2       | 339               | 76 |
+| 1             |     1         | 8            |  2       | 334               | 81 |
+| 1             |     1         | 16           |  2       | 332               | 74 |
+| 1             |     1         | 4            |  3       | 256               | 68 |
+| 1             |     1         | 8            |  3       | 251               | 73 |
+| 1             |     1         | 16           |  3       | 249               | 66 |
+| 1             |     1         | 4            |  4       | 226               | 59 |
+| 1             |     1         | 8            |  4       | 220               | 58 |
+| 1             |     1         | 16           |  4       | 214               | 65 |
+| 1             |     1         | 32           |  4       | 218               | 63 |
 
 "Training Time" in the table above is the time to run `model.fit(train_dataset, epochs=epochs)`. "Mean GPU utilization" was taken from the output of the `jobstats` command.
 

@@ -341,9 +341,7 @@ def main():
                        transform=transform)
     dataset2 = datasets.MNIST('data', train=False,
                        transform=transform)
-    train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
-    test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
-
+ 
     world_size    = int(os.environ["WORLD_SIZE"])
     rank          = int(os.environ["SLURM_PROCID"])
     gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
@@ -358,6 +356,11 @@ def main():
     torch.cuda.set_device(local_rank)
     print(f"host: {gethostname()}, rank: {rank}, local_rank: {local_rank}")
 
+    train_sampler = torch.utils.data.distributed.DistributedSampler(dataset1, num_replicas=world_size, rank=rank)
+    train_loader = torch.utils.data.DataLoader(dataset1, batch_size=args.batch_size, sampler=train_sampler, \
+                                               num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]), pin_memory=True)
+    test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
+
     model = Net().to(local_rank)
     ddp_model = DDP(model, device_ids=[local_rank])
     optimizer = optim.Adadelta(ddp_model.parameters(), lr=args.lr)
@@ -365,7 +368,7 @@ def main():
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
     for epoch in range(1, args.epochs + 1):
         train(args, ddp_model, local_rank, train_loader, optimizer, epoch)
-        test(ddp_model, local_rank, test_loader)
+        if rank == 0: test(ddp_model, local_rank, test_loader)
         scheduler.step()
 
     if args.save_model and rank == 0:

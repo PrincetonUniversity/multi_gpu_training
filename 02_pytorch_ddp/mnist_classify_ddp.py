@@ -146,7 +146,7 @@ def main():
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
     for epoch in range(1, args.epochs + 1):
         train(args, ddp_model, local_rank, train_loader, optimizer, epoch)
-        test(ddp_model, local_rank, test_loader)
+        if rank == 0: test(ddp_model, local_rank, test_loader)
         scheduler.step()
 
     if args.save_model and rank == 0:

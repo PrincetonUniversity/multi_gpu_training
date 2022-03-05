@@ -95,9 +95,10 @@ if __name__ == '__main__':
   num_classes = info.features["label"].num_classes
 
   strategy = tf.distribute.MirroredStrategy()
-  print_info(strategy.num_replicas_in_sync, args.batch_size_per_replica, info, num_classes)
   train_dataset = create_dataset(args.batch_size_per_replica, datasets, strategy)
   train(args.epochs, num_classes, train_dataset, strategy)
+  
+  print_info(strategy.num_replicas_in_sync, args.batch_size_per_replica, info, num_classes)
 ```
 
 ### Step 4: Submit the Job

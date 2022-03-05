@@ -4,7 +4,7 @@ The starting point for [multi-GPU training with Keras](https://www.tensorflow.or
 
 ## Single-Node, Synchronous, Multi-GPU Training
 
-Here were train the ResNet-50 model on the Cassava dataset (see [video](https://www.youtube.com/watch?v=xzSCvXDcX68) on TensorFlow YouTube channel).
+Here were train the ResNet-50 model on the Cassava dataset (see [video](https://www.youtube.com/watch?v=xzSCvXDcX68) on TensorFlow YouTube channel). Here is another example [video](https://www.youtube.com/watch?v=HCLmM1PyDIs) using the "cats vs. dog" dataset.
 
 ### Step 1: Installation
 

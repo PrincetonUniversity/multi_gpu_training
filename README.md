@@ -2,7 +2,7 @@
 
 ## About
 
-This workshop shows participants how to optimize single-GPU training. The concepts of multi-GPU training are introduced before demonstrating the use of Distributed Data Parallel (DDP) in PyTorch. Other distributed deep learning frameworks are discussed. While the workshop is largely focused on PyTorch, demonstrations for TensorFlow are available.
+This workshop provides demostrations of multi-GPU training for PyTorch Distributed Data Parallel (DDP) and PyTorch Lightning. Multi-GPU training in TensorFlow is demonstrated using `MirroredStrategy`.
 
 ## Setup
 

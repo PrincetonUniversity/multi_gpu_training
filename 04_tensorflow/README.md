@@ -157,6 +157,8 @@ The figure below shows the speed-up as a function of the number of GPUs. The das
 
 <img src="speedup_vs_gpus.png" alt="speed-up" width="700"/>
 
+We see that linear scaling is not observed. That is, the training time when using 2 GPUs is not 1/2 of the training time when using one. To improve on this one would profile the script and identify the performance bottleneck. Some of the training images are 500 pixels wide. It could be that the preprocessing step is the slowest. One way to deal with this would be to preprocess the images before launching the TensorFlow script.
+
 All runs were done on adroit-h11g1 while making certain that no other jobs were running on the node:
 
 ```

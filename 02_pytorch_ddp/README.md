@@ -16,8 +16,14 @@ The single-program, multiple data (SPMD) paradigm is used. That is, the model is
 
 If you would like more background then read through these PyTorch pages:
 
-[Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
-[See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
++ [Getting Started with Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html)  
++ [See the docs on DPP](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html)  
+
+Here are some webpages and videos:
+
++ [YouTube Video](https://www.youtube.com/watch?v=TibQO_xv1zc)  
++ [GitHub Gist](https://gist.github.com/TengdaHan/1dd10d335c7ca6f13810fff41e809904)  
++ [GWDG Webpage](https://info.gwdg.de/wiki/doku.php?id=wiki:hpc:pytorch_on_the_hpc_clusters)
 
 ### Be Aware
 

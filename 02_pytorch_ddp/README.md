@@ -40,7 +40,7 @@ def setup(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
 ```
 
-Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on.
+Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on. One should prefer `nccl` over `gloo` since the latter will use TCP by first moving tensor to CPU.
 
 For the single-GPU training:
 

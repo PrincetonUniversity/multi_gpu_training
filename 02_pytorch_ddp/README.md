@@ -59,6 +59,14 @@ optimizer = optim.Adadelta(ddp_model.parameters(), lr=args.lr)
 
 More on `local_rank` below. In short, this is the GPU index.
 
+One also needs to ensure that a different batch is sent to each GPU:
+
+```
+train_sampler = torch.utils.data.distributed.DistributedSampler(dataset1, num_replicas=world_size, rank=rank)
+    train_loader = torch.utils.data.DataLoader(dataset1, batch_size=args.batch_size, sampler=train_sampler, \
+                                               num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]), pin_memory=True)
+```
+
 ## Simple DDP Script
 
 The following can be used as a simple use case of DPP:

@@ -41,4 +41,4 @@ If you encounter any difficulties with the material in this guide then please se
 
 ### Authorship
 
-This guide was created by Mengzhou Xia, Alexander Wettig and Jonathan Halverson. Members of Princeton Research Computing made contributions to this work.
+This guide was created by Mengzhou Xia, Alexander Wettig and Jonathan Halverson. Members of Princeton Research Computing made contributions to this material.

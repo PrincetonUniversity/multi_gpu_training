@@ -1,9 +1,9 @@
 # Multi-GPU Training with PyTorch: Data and Model Parallelism
 
-## About
+### About
 This workshop provides demostrations of multi-GPU training using PyTorch. The first part of this workshop will show participants how to optimize single-GPU training. We will then illustrate the necessary code changes to enable multi-GPU training using the data-parallel and model-parallel approaches. This workshop aims to prepare researchers to use the new H100 GPU nodes as part of Princeton Language and Intelligence.
 
-## Setup
+### Setup
 
 Make sure you can run Python on Adroit:
 
@@ -35,10 +35,10 @@ Toward the end of the workshop please complete [this survey](https://forms.gle/p
 - To use GPUs during the live workshop: `#SBATCH --reservation=multigpu`
 -->
 
-## Getting Help
+### Getting Help
 
 If you encounter any difficulties with the material in this guide then please send an email to <a href="mailto:cses@princeton.edu">cses@princeton.edu</a> or attend a <a href="https://researchcomputing.princeton.edu/education/help-sessions">help session</a>.
 
-## Authorship
+### Authorship
 
 This guide was created by Mengzhou Xia, Alexander Wettig and Jonathan Halverson. Members of Princeton Research Computing made contributions to this work.

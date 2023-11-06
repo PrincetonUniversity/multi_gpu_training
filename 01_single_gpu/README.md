@@ -33,7 +33,7 @@ Next, download the data while on the login node since the compute nodes do not h
 
 ```bash
 (torch-env) $ cd multi_gpu_training/01_single_gpu
-(torch-env) $ python download_data.py
+(torch-env) $ python download_mnist.py
 ```
 
 Below is the Slurm script:
@@ -52,7 +52,7 @@ Below is the Slurm script:
 #SBATCH --mail-user=<YourNetID>@princeton.edu
 
 module purge
-module load anaconda3/2021.11
+module load anaconda3/2023.9
 conda activate torch-env
 
 kernprof -l mnist_classify.py --epochs=3

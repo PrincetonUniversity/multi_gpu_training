@@ -64,21 +64,23 @@ Finally, submit the job:
 (torch-env) $ sbatch job.slurm  # edit your email address in job.slurm before submitting
 ```
 
-You should find that the code runs in about 1 minute on a V100 GPU using 1 CPU-core:
+You should find that the code runs in about 1 minute on an A100 GPU using 1 CPU-core:
 
 ```
-$ seff 1268057
-Job ID: 1268057
-Cluster: adroit
-User/Group: jdh4/cses
+$ seff 51876015
+Job ID: 51876015
+Cluster: della
+User/Group: aturing/cses
 State: COMPLETED (exit code 0)
 Cores: 1
-CPU Utilized: 00:00:59
-CPU Efficiency: 92.19% of 00:01:04 core-walltime
-Job Wall-clock time: 00:01:04
-Memory Utilized: 2.59 GB
-Memory Efficiency: 64.72% of 4.00 GB
+CPU Utilized: 00:00:42
+CPU Efficiency: 95.45% of 00:00:44 core-walltime
+Job Wall-clock time: 00:00:44
+Memory Utilized: 438.79 MB
+Memory Efficiency: 5.36% of 8.00 GB
 ```
+
+For jobs that run for longer than 1 minute, one should use the `jobstats` command instead of `seff`.
 
 Some variation in the run time is expected when multiple users are running on the same node.
 

@@ -152,7 +152,7 @@ export MASTER_ADDR=$master_addr
 echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
-module load anaconda3/2021.11
+module load anaconda3/2023.9
 conda activate torch-env
 
 srun python myscript.py
@@ -228,7 +228,7 @@ export MASTER_ADDR=$master_addr
 echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
-module load anaconda3/2021.11
+module load anaconda3/2023.9
 conda activate torch-env
 
 srun python mnist_classify_ddp.py --epochs=2
@@ -411,7 +411,7 @@ Execute the commands below to run the example above:
 ```bash
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
 $ cd multi_gpu_training/02_pytorch_ddp
-$ module load anaconda3/2021.11
+$ module load anaconda3/2023.9
 $ conda activate torch-env  # see 01_single_gpu in this repo for installation directions
 (torch-env) $ python download_data.py
 (torch-env) $ sbatch job.slurm  # edit your email address in job.slurm before submitting
@@ -426,7 +426,7 @@ Use `gradient_as_bucket_view=True` when making the DDP model to decrease the req
 If you are using the [PyTorch container](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch#containers) then the last line of your Slurm script will look like:
 
 ```
-srun singularity exec --nv $HOME/software/pytorch_22.01-py3.sif python mnist_classify_ddp.py --epochs=3
+srun singularity exec --nv $HOME/software/pytorch_23.09-py3.sif python mnist_classify_ddp.py --epochs=3
 ```
 
 ## Notes on Traverse

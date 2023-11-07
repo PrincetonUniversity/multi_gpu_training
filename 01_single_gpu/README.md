@@ -61,7 +61,7 @@ kernprof -l mnist_classify.py --epochs=3
 Finally, submit the job:
 
 ```bash
-(torch-env) $ sbatch job.slurm  # edit your email address in job.slurm before submitting
+(torch-env) $ sbatch --reservation=multigpu job.slurm  # edit your email address in job.slurm before submitting
 ```
 
 You should find that the code runs in about 1 minute on an A100 GPU using 1 CPU-core:

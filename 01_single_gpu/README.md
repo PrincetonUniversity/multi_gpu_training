@@ -118,7 +118,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
  36.94 seconds - mnist_classify.py:39 - train
 ```
 
-The slowest line is number 42 which consumes 82.6% of the time in the training function. That line involves train_loader which is the data loader for the training set. Are you surprised that the data loader is the slowest step? Can we improve on this?
+The slowest line is number 42 which consumes 81.7% of the time in the training function. That line involves `train_loader` which is the data loader for the training set. Are you surprised that the data loader is the slowest step and not the forward pass or calculation of the gradients? Can we improve on this?
 
 ## Examine Your GPU Utilization
 

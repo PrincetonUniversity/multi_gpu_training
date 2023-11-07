@@ -124,9 +124,9 @@ def main():
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
         ])
-    dataset1 = datasets.MNIST('../data', train=True, download=True,
+    dataset1 = datasets.MNIST('data/', train=True, download=False,
                        transform=transform)
-    dataset2 = datasets.MNIST('../data', train=False,
+    dataset2 = datasets.MNIST('data/', train=False,
                        transform=transform)
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)

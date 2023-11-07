@@ -92,7 +92,7 @@ We installed [line_profiler](https://researchcomputing.princeton.edu/python-prof
 (torch-env) $ python -m line_profiler mnist_classify.py.lprof 
 Timer unit: 1e-06 s
 
-Total time: 48.428 s
+Total time: 36.9404 s
 File: mnist_classify.py
 Function: train at line 39
 
@@ -100,20 +100,22 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 ==============================================================
     39                                           @profile
     40                                           def train(args, model, device, train_loader, optimizer, epoch):
-    41         3        343.0    114.3      0.0      model.train()
-    42      2817   40013383.0  14204.3     82.6      for batch_idx, (data, target) in enumerate(train_loader):
-    43      2814     195724.0     69.6      0.4          data, target = data.to(device), target.to(device)
-    44      2814     353065.0    125.5      0.7          optimizer.zero_grad()
-    45      2814    2238901.0    795.6      4.6          output = model(data)
-    46      2814      95510.0     33.9      0.2          loss = F.nll_loss(output, target)
-    47      2814    2848827.0   1012.4      5.9          loss.backward()
-    48      2814    2661568.0    945.8      5.5          optimizer.step()
-    49      2814       5023.0      1.8      0.0          if batch_idx % args.log_interval == 0:
-    50       564       2482.0      4.4      0.0              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-    51       282       3041.0     10.8      0.0                  epoch, batch_idx * len(data), len(train_loader.dataset),
-    52       282       9895.0     35.1      0.0                  100. * batch_idx / len(train_loader), loss.item()))
-    53       282        201.0      0.7      0.0              if args.dry_run:
+    41         3        278.9     93.0      0.0      model.train()
+    42      2817   30194544.1  10718.7     81.7      for batch_idx, (data, target) in enumerate(train_loader):
+    43      2814     166395.1     59.1      0.5          data, target = data.to(device), target.to(device)
+    44      2814     244333.6     86.8      0.7          optimizer.zero_grad()
+    45      2814    1741385.8    618.8      4.7          output = model(data)
+    46      2814      80130.5     28.5      0.2          loss = F.nll_loss(output, target)
+    47      2814    2486807.5    883.7      6.7          loss.backward()
+    48      2814    1999662.9    710.6      5.4          optimizer.step()
+    49      2814       3229.6      1.1      0.0          if batch_idx % args.log_interval == 0:
+    50       564       2427.9      4.3      0.0              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+    51       282       2708.0      9.6      0.0                  epoch, batch_idx * len(data), len(train_loader.dataset),
+    52       282      18356.0     65.1      0.0                  100. * batch_idx / len(train_loader), loss.item()))
+    53       282        157.7      0.6      0.0              if args.dry_run:
     54                                                           break
+
+ 36.94 seconds - mnist_classify.py:39 - train
 ```
 
 The slowest line is number 42 which consumes 82.6% of the time in the training function. That line involves train_loader which is the data loader for the training set. Are you surprised that the data loader is the slowest step? Can we improve on this?

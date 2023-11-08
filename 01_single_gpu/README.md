@@ -81,7 +81,7 @@ You should find that the code runs in about 20-40 seconds with 1 CPU-core depend
 $ seff 1937315
 Job ID: 1937315
 Cluster: adroit
-User/Group: jdh4/cses
+User/Group: aturing/cses
 State: COMPLETED (exit code 0)
 Cores: 1
 CPU Utilized: 00:00:36
@@ -108,7 +108,7 @@ We installed [line_profiler](https://researchcomputing.princeton.edu/python-prof
 (torch-env) $ python -m line_profiler mnist_classify.py.lprof 
 Timer unit: 1e-06 s
 
-Total time: 36.9404 s
+Total time: 30.707 s
 File: mnist_classify.py
 Function: train at line 39
 
@@ -116,27 +116,25 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 ==============================================================
     39                                           @profile
     40                                           def train(args, model, device, train_loader, optimizer, epoch):
-    41         3        278.9     93.0      0.0      model.train()
-    42      2817   30194544.1  10718.7     81.7      for batch_idx, (data, target) in enumerate(train_loader):
-    43      2814     166395.1     59.1      0.5          data, target = data.to(device), target.to(device)
-    44      2814     244333.6     86.8      0.7          optimizer.zero_grad()
-    45      2814    1741385.8    618.8      4.7          output = model(data)
-    46      2814      80130.5     28.5      0.2          loss = F.nll_loss(output, target)
-    47      2814    2486807.5    883.7      6.7          loss.backward()
-    48      2814    1999662.9    710.6      5.4          optimizer.step()
-    49      2814       3229.6      1.1      0.0          if batch_idx % args.log_interval == 0:
-    50       564       2427.9      4.3      0.0              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-    51       282       2708.0      9.6      0.0                  epoch, batch_idx * len(data), len(train_loader.dataset),
-    52       282      18356.0     65.1      0.0                  100. * batch_idx / len(train_loader), loss.item()))
-    53       282        157.7      0.6      0.0              if args.dry_run:
+    41         3        216.5     72.2      0.0      model.train()
+    42      2817   25944718.9   9210.1     84.5      for batch_idx, (data, target) in enumerate(train_loader):
+    43      2814     286861.8    101.9      0.9          data, target = data.to(device), target.to(device)
+    44      2814     298085.2    105.9      1.0          optimizer.zero_grad()
+    45      2814    1200436.0    426.6      3.9          output = model(data)
+    46      2814      81736.9     29.0      0.3          loss = F.nll_loss(output, target)
+    47      2814    1939691.5    689.3      6.3          loss.backward()
+    48      2814     839897.9    298.5      2.7          optimizer.step()
+    49      2814       2200.7      0.8      0.0          if batch_idx % args.log_interval == 0:
+    50       564       1834.3      3.3      0.0              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+    51       282       2340.5      8.3      0.0                  epoch, batch_idx * len(data), len(train_loader.dataset),
+    52       282     108867.7    386.1      0.4                  100. * batch_idx / len(train_loader), loss.item()))
+    53       282        120.9      0.4      0.0              if args.dry_run:
     54                                                           break
-
- 36.94 seconds - mnist_classify.py:39 - train
 ```
 
-The slowest line is number 42 which consumes 81.7% of the time in the training function. That line involves `train_loader` which is the data loader for the training set. Are you surprised that the data loader is the slowest step and not the forward pass or calculation of the gradients? Can we improve on this?
+The slowest line is number 42 which consumes 84.5% of the time in the training function. That line involves `train_loader` which is the data loader for the training set. Are you surprised that the data loader is the slowest step and not the forward pass or calculation of the gradients? Can we improve on this?
 
-## Examine Your GPU Utilization
+### Examine Your GPU Utilization
 
 Use tools like [jobstats](https://researchcomputing.princeton.edu/support/knowledge-base/job-stats#jobstats), [gpudash](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing#gpudash) and [stats.rc](https://researchcomputing.princeton.edu/support/knowledge-base/job-stats#stats.rc) to measure your GPU utilization. You can also do this on a [compute node in real time](https://researchcomputing.princeton.edu/support/knowledge-base/gpu-computing#gpu-utilization).
 

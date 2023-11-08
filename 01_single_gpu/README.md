@@ -64,10 +64,10 @@ module purge
 module load anaconda3/2023.9
 conda activate /home/jdh4/.conda/envs/torch-env
 
-kernprof -l mnist_classify.py --epochs=3
+kernprof -o ${SLURM_JOBID}.lprof -l mnist_classify.py --epochs=3
 ```
 
-`kernprof` wraps Python. Adroit has two different A100 nodes. Learn how to choose [specific nodes](https://researchcomputing.princeton.edu/systems/adroit#gpus).
+`kernprof` is a profiler that wraps Python. Adroit has two different A100 nodes. Learn how to choose [specific nodes](https://researchcomputing.princeton.edu/systems/adroit#gpus).
 
 Finally, submit the job while specifying the reservation:
 
@@ -105,10 +105,10 @@ Some variation in the run time is expected when multiple users are running on th
 We installed [line_profiler](https://researchcomputing.princeton.edu/python-profiling) into the Conda environment and profiled the code. To analyze the profiling data:
 
 ```
-(torch-env) $ python -m line_profiler mnist_classify.py.lprof 
+(torch-env) $ python -m line_profiler -rmt *.lprof 
 Timer unit: 1e-06 s
 
-Total time: 30.707 s
+Total time: 30.8937 s
 File: mnist_classify.py
 Function: train at line 39
 
@@ -116,20 +116,22 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 ==============================================================
     39                                           @profile
     40                                           def train(args, model, device, train_loader, optimizer, epoch):
-    41         3        216.5     72.2      0.0      model.train()
-    42      2817   25944718.9   9210.1     84.5      for batch_idx, (data, target) in enumerate(train_loader):
-    43      2814     286861.8    101.9      0.9          data, target = data.to(device), target.to(device)
-    44      2814     298085.2    105.9      1.0          optimizer.zero_grad()
-    45      2814    1200436.0    426.6      3.9          output = model(data)
-    46      2814      81736.9     29.0      0.3          loss = F.nll_loss(output, target)
-    47      2814    1939691.5    689.3      6.3          loss.backward()
-    48      2814     839897.9    298.5      2.7          optimizer.step()
-    49      2814       2200.7      0.8      0.0          if batch_idx % args.log_interval == 0:
-    50       564       1834.3      3.3      0.0              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-    51       282       2340.5      8.3      0.0                  epoch, batch_idx * len(data), len(train_loader.dataset),
-    52       282     108867.7    386.1      0.4                  100. * batch_idx / len(train_loader), loss.item()))
-    53       282        120.9      0.4      0.0              if args.dry_run:
+    41         3        213.1     71.0      0.0      model.train()
+    42      2817   26106124.7   9267.3     84.5      for batch_idx, (data, target) in enumerate(train_loader):
+    43      2814     286242.0    101.7      0.9          data, target = data.to(device), target.to(device)
+    44      2814     296440.2    105.3      1.0          optimizer.zero_grad()
+    45      2814    1189206.1    422.6      3.8          output = model(data)
+    46      2814      81578.6     29.0      0.3          loss = F.nll_loss(output, target)
+    47      2814    1979990.2    703.6      6.4          loss.backward()
+    48      2814     841861.9    299.2      2.7          optimizer.step()
+    49      2814       2095.3      0.7      0.0          if batch_idx % args.log_interval == 0:
+    50       564       1852.9      3.3      0.0              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+    51       282       2218.6      7.9      0.0                  epoch, batch_idx * len(data), len(train_loader.dataset),
+    52       282     105753.3    375.0      0.3                  100. * batch_idx / len(train_loader), loss.item()))
+    53       282        119.2      0.4      0.0              if args.dry_run:
     54                                                           break
+
+ 30.89 seconds - mnist_classify.py:39 - train
 ```
 
 The slowest line is number 42 which consumes 84.5% of the time in the training function. That line involves `train_loader` which is the data loader for the training set. Are you surprised that the data loader is the slowest step and not the forward pass or calculation of the gradients? Can we improve on this?

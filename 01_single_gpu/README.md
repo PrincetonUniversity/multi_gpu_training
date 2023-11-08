@@ -6,23 +6,27 @@ Here we train a CNN on the MNIST dataset using a single GPU as an example. We pr
 
 This tutorial uses PyTorch but the steps are the similar for TensorFlow. See our [TensorFlow](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) page and the [performance tuning guide](https://tigress-web.princeton.edu/~jdh4/TensorflowPerformanceOptimization_GTC2021.pdf).
 
-## Step 1: Installation
+## Step 1: Activate the Environment
 
-Follow the directions on our [PyTorch](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch) webpage to install PyTorch. Then activate the environment and install the profiler:
+For simplicity we will use a pre-installed Conda environmnet. Run these commands to activate the environment:
 
-```
-$ conda activate torch-env
-(torch-env) $ conda install line_profiler --channel conda-forge
+```bash
+$ module load anaconda3/2023.9
+$ conda activate /home/jdh4/.conda/envs/torch-env
 ```
 
 Watch a [video](https://www.youtube.com/watch?v=wqTgM-Wq4YY&t=296s) that covers everything on this page for single-GPU training with [profiling Python](https://researchcomputing.princeton.edu/python-profiling) using `line_profiler`.
 
-
 ## Step 2: Run and Profile the Script
 
-First, inspect the script ([see script](mnist_classify.py)).
+First, inspect the script ([see script](mnist_classify.py)) by running these commands:
 
-Note that we will profile the `train` function using `line_profiler` (see line 39):
+```bash
+(torch-env) $ cd multi_gpu_training/01_single_gpu
+(torch-env) $ cat mnist_classify.py
+```
+
+We will profile the `train` function using `line_profiler` (see line 39) by adding the following decorator:
 
 ```python
 @profile
@@ -31,8 +35,6 @@ def train(args, model, device, train_loader, optimizer, epoch):
 
 Next, download the data while on the login node since the compute nodes do not have internet access:
 
-```bash
-(torch-env) $ cd multi_gpu_training/01_single_gpu
 (torch-env) $ python download_mnist.py
 ```
 
@@ -49,19 +51,18 @@ Below is the Slurm script:
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
-#SBATCH --mail-user=<YourNetID>@princeton.edu
 
 module purge
 module load anaconda3/2023.9
-conda activate torch-env
+conda activate /home/jdh4/.conda/envs/torch-env
 
 kernprof -l mnist_classify.py --epochs=3
 ```
 
-Finally, submit the job:
+Finally, submit the job while specifying the reservation:
 
 ```bash
-(torch-env) $ sbatch --reservation=multigpu job.slurm  # edit your email address in job.slurm before submitting
+(torch-env) $ sbatch --reservation=multigpu job.slurm
 ```
 
 You should find that the code runs in about 1 minute on an A100 GPU using 1 CPU-core:
@@ -154,3 +155,14 @@ Consider these external data loading libraries: [ffcv](https://github.com/libffc
 It is essential to optimize your code before going to multi-GPU training since the inefficiencies will only be magnified otherwise. The more GPUs you request in a Slurm job, the longer you will wait for the job to run. If you can get your work done using an optimized script running on a single GPU then proceed that way. Do not use multiple GPUs if your GPU efficiency is low. The average GPU efficiency on Della is around 50%.
 
 Next, we focus on scaling the code to multiple GPUs (go to [next section](../02_pytorch_ddp)).
+
+## How was the Conda environment made?
+
+Please do not do this during the workshop. Your `/home` directory on Adroit probably has a capacity of 9.3 GB. To store Conda environments in another location see [this page](https://researchcomputing.princeton.edu/support/knowledge-base/checkquota).
+
+```bash
+$ module load anaconda3/2023.9
+$ conda create --name torch-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia -y
+$ conda activate torch-env
+$ conda install line_profiler --channel conda-forge
+```

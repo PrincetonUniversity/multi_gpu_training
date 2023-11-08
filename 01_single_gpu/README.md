@@ -54,6 +54,12 @@ Below is the Slurm script:
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
 
+# which gpu node ran the code
+echo "Running on host" $(hostname)
+
+# print the slurm environment variables sorted by name
+printenv | grep -i slurm | sort
+
 module purge
 module load anaconda3/2023.9
 conda activate /home/jdh4/.conda/envs/torch-env
@@ -61,31 +67,38 @@ conda activate /home/jdh4/.conda/envs/torch-env
 kernprof -l mnist_classify.py --epochs=3
 ```
 
+`kernprof` wraps Python. Adroit has two different A100 nodes. Learn how to choose [specific nodes](https://researchcomputing.princeton.edu/systems/adroit#gpus).
+
 Finally, submit the job while specifying the reservation:
 
 ```bash
 (torch-env) $ sbatch --reservation=multigpu job.slurm
 ```
 
-You should find that the code runs in about 1 minute on an A100 GPU using 1 CPU-core:
+You should find that the code runs in about 20-40 seconds with 1 CPU-core depending on which A100 GPU node was used:
 
 ```
-$ seff 51876015
-Job ID: 51876015
-Cluster: della
-User/Group: aturing/cses
+$ seff 1937315
+Job ID: 1937315
+Cluster: adroit
+User/Group: jdh4/cses
 State: COMPLETED (exit code 0)
 Cores: 1
-CPU Utilized: 00:00:42
-CPU Efficiency: 95.45% of 00:00:44 core-walltime
-Job Wall-clock time: 00:00:44
-Memory Utilized: 438.79 MB
-Memory Efficiency: 5.36% of 8.00 GB
+CPU Utilized: 00:00:36
+CPU Efficiency: 94.74% of 00:00:38 core-walltime
+Job Wall-clock time: 00:00:38
+Memory Utilized: 593.32 MB
+Memory Efficiency: 7.24% of 8.00 GB
 ```
 
-For jobs that run for longer than 1 minute, one should use the `jobstats` command instead of `seff`.
+For jobs that run for longer than 1 minute, one should use the `jobstats` command instead of `seff`. Use `shistory -n` to see which node was used or look in the `slurm-#######.out` file.
 
-Some variation in the run time is expected when multiple users are running on the same node.
+Some variation in the run time is expected when multiple users are running on the same node. Also, the two A100 GPU nodes are not equal:
+
+| hostname | CPU | GPU |
+| ----------- | ----------- | ----------- |
+| adroit-h11g2 | Intel(R) Xeon(R) Gold 6342 CPU @ 2.80GHz | NVIDIA A100-PCIE-40GB |
+| adroit-h11g1 | Intel(R) Xeon(R) Gold 6442Y @ 2.6GHz | NVIDIA A100 80GB PCIe |
 
 ## Step 3: Analyze the Profiling Data
 

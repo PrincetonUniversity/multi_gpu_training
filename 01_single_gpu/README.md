@@ -158,9 +158,10 @@ Next, we focus on scaling the code to multiple GPUs (go to [next section](../02_
 
 ## How was the Conda environment made?
 
-Please do not do this during the workshop. Your `/home` directory on Adroit probably has a capacity of 9.3 GB. To store Conda environments in another location see [this page](https://researchcomputing.princeton.edu/support/knowledge-base/checkquota).
+Please do not do this during the workshop. Your `/home` directory on Adroit probably has a capacity of 9.3 GB. To store Conda environments in another location see [this page](https://researchcomputing.princeton.edu/support/knowledge-base/checkquota). See the Research Computing knowledge base on [PyTorch](https://researchcomputing.princeton.edu/support/knowledge-base/pytorch).
 
 ```bash
+$ ssh <YourNetID>@adroit.princeton.edu
 $ module load anaconda3/2023.9
 $ conda create --name torch-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia -y
 $ conda activate torch-env

@@ -97,8 +97,8 @@ Some variation in the run time is expected when multiple users are running on th
 
 | hostname | CPU | GPU |
 | ----------- | ----------- | ----------- |
-| adroit-h11g2 | Intel(R) Xeon(R) Gold 6342 CPU @ 2.80GHz | NVIDIA A100-PCIE-40GB |
-| adroit-h11g1 | Intel(R) Xeon(R) Gold 6442Y @ 2.6GHz | NVIDIA A100 80GB PCIe |
+| adroit-h11g1 | Intel Xeon Gold 6442Y @ 2.6GHz | NVIDIA A100 80GB PCIe |
+| adroit-h11g2 | Intel Xeon Gold 6342  @ 2.8GHz | NVIDIA A100-PCIE-40GB |
 
 ## Step 3: Analyze the Profiling Data
 

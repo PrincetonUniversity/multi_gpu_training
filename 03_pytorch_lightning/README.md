@@ -12,10 +12,10 @@ Once these changes have been made one can simply choose how many nodes or GPUs t
 Della-GPU or Adroit (A100):
 
 ```bash
-$ module load anaconda3/2021.11
-$ conda create --name torch-pl-env pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+$ module load anaconda3/2023.9
+$ conda create --name torch-pl-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
 $ conda activate torch-pl-env
-$ pip install pytorch-lightning
+$ pip install lightning
 ```
 
 See the [Trainer API](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-class-api).
@@ -89,7 +89,13 @@ val_loader = DataLoader(mnist_val, batch_size=32, **val_kwargs)
 model = LitAutoEncoder()
 
 # training
-trainer = pl.Trainer(gpus=1, num_nodes=1, precision=32, limit_train_batches=0.5, enable_progress_bar=False, max_epochs=10)
+trainer = pl.Trainer(devices=2,
+                     accelerator="gpu",
+                     num_nodes=1,
+                     precision=32,
+                     limit_train_batches=0.5,
+                     enable_progress_bar=False,
+                     max_epochs=10)
 trainer.fit(model, train_loader, val_loader)
 ```
 
@@ -210,7 +216,8 @@ model = LitResnet(lr=0.05)
 model.datamodule = cifar10_dm
 
 trainer = Trainer(
-    gpus=ALLOCATED_GPUS_PER_NODE,
+    devices=ALLOCATED_GPUS_PER_NODE,
+    accelerator="gpu",
     num_nodes=NUM_NODES,
     strategy='ddp',
     precision=32,

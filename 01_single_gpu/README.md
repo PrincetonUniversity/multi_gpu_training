@@ -11,6 +11,7 @@ This tutorial uses PyTorch but the steps are the similar for TensorFlow. See our
 For simplicity we will use a pre-installed Conda environmnet. Run these commands to activate the environment:
 
 ```bash
+$ ssh <YourNetID>@adroit.princeton.edu
 $ module load anaconda3/2023.9
 $ conda activate /home/jdh4/.conda/envs/torch-env
 ```

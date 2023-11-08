@@ -54,7 +54,7 @@ Below is the Slurm script:
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
 
-# which gpu node ran the code
+# which gpu node was used
 echo "Running on host" $(hostname)
 
 # print the slurm environment variables sorted by name

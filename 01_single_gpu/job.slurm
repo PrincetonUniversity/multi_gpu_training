@@ -9,6 +9,12 @@
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
 
+# which gpu node was used
+echo "Running on host" $(hostname)
+
+# print the slurm environment variables sorted by name
+printenv | grep -i slurm | sort
+
 module purge
 module load anaconda3/2023.9
 conda activate conda activate /home/jdh4/.conda/envs/torch-env

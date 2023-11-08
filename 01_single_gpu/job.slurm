@@ -19,4 +19,4 @@ module purge
 module load anaconda3/2023.9
 conda activate conda activate /home/jdh4/.conda/envs/torch-env
 
-kernprof -l mnist_classify.py --epochs=3
+kernprof -o ${SLURM_JOBID}.lprof -l mnist_classify.py --epochs=3

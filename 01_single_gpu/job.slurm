@@ -8,10 +8,9 @@
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
-#SBATCH --mail-user=<YourNetID>@princeton.edu
 
 module purge
 module load anaconda3/2023.9
-conda activate torch-env
+conda activate conda activate /home/jdh4/.conda/envs/torch-env
 
 kernprof -l mnist_classify.py --epochs=3

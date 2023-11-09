@@ -143,7 +143,7 @@ The compute nodes do not have internet access so download the data on the login 
 
 ```
 $ cd multi_gpu_training/03_pytorch_lightning/multi
-(bolts) $ python download_cifar10.py
+(torch-env)$ python download_cifar10.py
 ```
 
 ### Step 2: Submit the Job

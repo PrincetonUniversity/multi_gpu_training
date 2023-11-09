@@ -5,7 +5,7 @@
 + restructure the code by moving the network definition, optimizer and other code to a subclass of `pl.LightningModule`  
 + remove `.cuda()` and `.to()` calls since Lightning code is hardware agnostic  
 
-Once these changes have been made one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest. One can also use different numerical precisions (fp16, bf16). There is tensorboard support.
+Once these changes have been made one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest. One can also use different numerical precisions (fp16, bf16). There is tensorboard support and [model-parallel training](https://lightning.ai/docs/pytorch/stable/advanced/model_parallel.html).
 
 ## Installation
 

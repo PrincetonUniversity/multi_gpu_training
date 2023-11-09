@@ -152,7 +152,7 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2023.9
-conda activate torch-env
+conda activate /home/jdh4/.conda/envs/torch-env
 
 srun python myscript.py
 ```
@@ -216,7 +216,6 @@ Below is an example Slurm script for DDP:
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
-#SBATCH --mail-user=<YourNetID>@princeton.edu
 
 export MASTER_PORT=$(expr 10000 + $(echo -n $SLURM_JOBID | tail -c 4))
 export WORLD_SIZE=$(($SLURM_NNODES * $SLURM_NTASKS_PER_NODE))
@@ -228,7 +227,7 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2023.9
-conda activate torch-env
+conda activate /home/jdh4/.conda/envs/torch-env
 
 srun python mnist_classify_ddp.py --epochs=2
 ```
@@ -411,9 +410,9 @@ Execute the commands below to run the example above:
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
 $ cd multi_gpu_training/02_pytorch_ddp
 $ module load anaconda3/2023.9
-$ conda activate torch-env  # see 01_single_gpu in this repo for installation directions
+$ conda activate /home/jdh4/.conda/envs/torch-env
 (torch-env) $ python download_data.py
-(torch-env) $ sbatch job.slurm  # edit your email address in job.slurm before submitting
+(torch-env) $ sbatch --reservation=multigpu job.slurm
 ```
 
 ## Memory issues

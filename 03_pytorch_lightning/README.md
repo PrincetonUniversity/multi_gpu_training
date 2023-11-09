@@ -7,17 +7,6 @@
 
 Once these changes have been made one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest. One can also use different numerical precisions (fp16, bf16). There is tensorboard support and [model-parallel training](https://lightning.ai/docs/pytorch/stable/advanced/model_parallel.html).
 
-## Installation
-
-Della-GPU or Adroit (A100):
-
-```bash
-$ module load anaconda3/2023.9
-$ conda create --name torch-pl-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
-$ conda activate torch-pl-env
-$ pip install lightning
-```
-
 See the [Trainer API](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html#trainer-class-api).
 
 ## Single-GPU Example
@@ -231,7 +220,6 @@ trainer.fit(model, cifar10_dm)
 trainer.test(model, datamodule=cifar10_dm)
 ```
 
-
 ### Step 1: Installation
 
 Create the following Conda environment:
@@ -291,7 +279,7 @@ How does the training time decrease in going from 1 to 2 to 4 GPUs? What happens
 
 ## Numerical Precision
 
-You can try adjusting the `precision` to accelerate training. The choice of `precision="bf16"` can only be used with PyTorch 1.10.
+You can try adjusting the `precision` to accelerate training. The choice of `precision="bf16"` can only be used with PyTorch 1.10+.
 
 ## Debugging
 
@@ -300,6 +288,17 @@ For troubleshooting NCCL try adding these environment variables to your Slurm sc
 ```
 export NCCL_DEBUG=INFO
 export NCCL_DEBUG_SUBSYS=ALL
+```
+
+## Installation
+
+Please do not do this during the workshop:
+
+```bash
+$ module load anaconda3/2023.9
+$ conda create --name torch-pl-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
+$ conda activate torch-pl-env
+$ pip install lightning
 ```
 
 ## Useful Links

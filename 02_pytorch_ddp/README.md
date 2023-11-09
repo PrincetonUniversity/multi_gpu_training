@@ -128,7 +128,7 @@ dist.destroy_process_group()
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=4
 ...
-srun python myscript.py
+srun python simple_dpp.py
 ```
 
 The Python interpreter will be launched 8 times (2 x 4) and each of the 8 tasks will have a different value of `SLURM_PROCID` from the set 0, 1, 2, 3, 4, 5, 6, 7.
@@ -159,10 +159,19 @@ module purge
 module load anaconda3/2023.9
 conda activate /home/jdh4/.conda/envs/torch-env
 
-srun python myscript.py
+srun python simple_dpp.py
 ```
 
 In the script above, `MASTER_PORT`, `MASTER_ADDR` and `WORLD_SIZE` are set. The three are later used to create the DDP process group. The total number of GPUs allocated to the job must be equal to `WORLD_SIZE` -- this is satisfied above since `nodes` times `ntasks-per-node` is `2 x 2 = 4` and number of GPUs allocated is `nodes` times `gpus_per_node` which is also `2 x 2 = 4`.
+
+You can run the simple DPP script with:
+
+```bash
+$ cd multi_gpu_training/02_pytorch_ddp
+$ sbatch --reservation=multigpu simple.slurm
+```
+
+Take a look at the output. Does it all make sense?
 
 ### Job Arrays
 

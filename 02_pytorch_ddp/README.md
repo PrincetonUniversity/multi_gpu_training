@@ -181,7 +181,7 @@ gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"])
 local_rank = rank - gpus_per_node * (rank // gpus_per_node)
 ```
 
-The `local_rank` should be used everywhere in your script except when initializing the DDP process group where `rank` should be used. In Python, one uses the  `//` operator for integer division. For example, `1 / 2 = 0.5` while `1 // 2 = 0`.
+The `local_rank` should be used everywhere in your script except when initializing the DDP process group where `rank` should be used. In Python, one uses the  `//` operator for floor division. For example, `3 / 2 = 1.5` while `3 // 2 = 1`.
 
 # DDP and Slurm
 

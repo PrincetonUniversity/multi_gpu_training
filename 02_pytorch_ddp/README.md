@@ -40,7 +40,7 @@ def setup(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
 ```
 
-Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on. One should prefer `nccl` over `gloo` as [described here](https://pytorch.org/docs/stable/distributed.html#initialization). The `rank` is the index of the process and `world_size` is the total number of processes. If you train model using 4 GPUs then `world_size` is 4 and the `ranks` of the processes are 0, 1, 2, 3.
+Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on. One should prefer `nccl` over `gloo` as [described here](https://pytorch.org/docs/stable/distributed.html#initialization). The `rank` is the index of the process and `world_size` is the total number of processes. If you train a model using 4 GPUs then `world_size` is 4 and the `ranks` of the processes are 0, 1, 2, 3.
 
 For the single-GPU training:
 

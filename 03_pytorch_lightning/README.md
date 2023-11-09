@@ -197,7 +197,7 @@ Please do not do this during the workshop:
 ```bash
 $ module load anaconda3/2023.9
 $ conda create --name torch-pl-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
-$ conda activate torch-pl-env
+$ conda activate bolts-env
 $ pip install lightning lightning-bolts
 ```
 

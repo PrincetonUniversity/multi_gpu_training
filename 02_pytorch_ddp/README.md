@@ -370,7 +370,7 @@ def main():
         ])
     dataset1 = datasets.MNIST('data', train=True, download=False,
                        transform=transform)
-    dataset2 = datasets.MNIST('data', train=False,
+    dataset2 = datasets.MNIST('data', train=False, download=False,
                        transform=transform)
  
     world_size    = int(os.environ["WORLD_SIZE"])
@@ -387,9 +387,14 @@ def main():
     torch.cuda.set_device(local_rank)
     print(f"host: {gethostname()}, rank: {rank}, local_rank: {local_rank}")
 
-    train_sampler = torch.utils.data.distributed.DistributedSampler(dataset1, num_replicas=world_size, rank=rank)
-    train_loader = torch.utils.data.DataLoader(dataset1, batch_size=args.batch_size, sampler=train_sampler, \
-                                               num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]), pin_memory=True)
+    train_sampler = torch.utils.data.distributed.DistributedSampler(dataset1,
+                                                                    num_replicas=world_size,
+                                                                    rank=rank)
+    train_loader = torch.utils.data.DataLoader(dataset1,
+                                               batch_size=args.batch_size,
+                                               sampler=train_sampler,
+                                               num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]),
+                                               pin_memory=True)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
 
     model = Net().to(local_rank)

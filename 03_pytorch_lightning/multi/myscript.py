@@ -75,11 +75,11 @@ class LitResnet(LightningModule):
         logits = self(x)
         loss = F.nll_loss(logits, y)
         preds = torch.argmax(logits, dim=1)
-        acc = accuracy(preds, y)
+        acc = accuracy(preds, y, task="multiclass", num_classes=10)
 
         if stage:
-            self.log(f"{stage}_loss", loss, prog_bar=True)
-            self.log(f"{stage}_acc", acc, prog_bar=True)
+            self.log(f"{stage}_loss", loss, prog_bar=False)
+            self.log(f"{stage}_acc", acc, prog_bar=False)
 
     def validation_step(self, batch, batch_idx):
         self.evaluate(batch, "val")
@@ -110,15 +110,13 @@ model = LitResnet(lr=0.05)
 model.datamodule = cifar10_dm
 
 trainer = Trainer(
-    gpus=ALLOCATED_GPUS_PER_NODE,
+    devices=ALLOCATED_GPUS_PER_NODE,
+    accelerator="gpu",
     num_nodes=NUM_NODES,
     strategy='ddp',
     precision=32,
-    max_epochs=10,
-    progress_bar_refresh_rate=10,
-    logger=TensorBoardLogger("lightning_logs/", name="resnet"),
-    callbacks=[LearningRateMonitor(logging_interval="step")],
-)
+    enable_progress_bar=False,
+    max_epochs=10)
 
 trainer.fit(model, cifar10_dm)
 trainer.test(model, datamodule=cifar10_dm)

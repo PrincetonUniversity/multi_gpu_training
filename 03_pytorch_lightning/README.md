@@ -146,13 +146,13 @@ $ cd multi_gpu_training/03_pytorch_lightning/multi
 (bolts) $ python download_cifar10.py
 ```
 
-### Step 3: Submit the Job
+### Step 2: Submit the Job
 
 Below is the Slurm script:
 
 ```bash
 #!/bin/bash
-#SBATCH --job-name=myjob         # create a short name for your job
+#SBATCH --job-name=lightning     # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks-per-node=2      # total number of tasks across all nodes
 #SBATCH --cpus-per-task=8        # cpu-cores per task (>1 if multi-threaded tasks)
@@ -164,7 +164,7 @@ Below is the Slurm script:
 
 module purge
 module load anaconda3/2023.9
-conda activate bolts-env
+conda activate /home/jdh4/.conda/envs/bolts-env
 
 srun python myscript.py
 ```
@@ -175,7 +175,7 @@ Submit the job:
 $ sbatch --reservation=multigpu job.slurm
 ```
 
-How does the training time decrease in going from 1 to 2 to 4 GPUs? What happens if you use `precision=16`?
+How does the training time decrease in going from 2 to 1 GPUs? What happens if you use `precision=16`?
 
 ## Numerical Precision
 
@@ -196,7 +196,7 @@ Please do not do this during the workshop:
 
 ```bash
 $ module load anaconda3/2023.9
-$ conda create --name torch-pl-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
+$ conda create --name bolts-env pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
 $ conda activate bolts-env
 $ pip install lightning lightning-bolts
 ```

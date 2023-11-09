@@ -40,7 +40,7 @@ def setup(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
 ```
 
-Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on. One should prefer `nccl` over `gloo` since the latter will use TCP by first moving tensor to CPU.
+Note that `dist.init_process_group()` is blocking. That means the code waits until all processes have reached that line and the command is successfully executed before going on. One should prefer `nccl` over `gloo` as [described here](https://pytorch.org/docs/stable/distributed.html#initialization).
 
 For the single-GPU training:
 
@@ -57,9 +57,9 @@ ddp_model = DDP(model, device_ids=[local_rank])
 optimizer = optim.Adadelta(ddp_model.parameters(), lr=args.lr)
 ```
 
-More on `local_rank` below. In short, this is the GPU index.
+More on `local_rank` below. In short, this is the GPU index which ranges from `0` to `N-1` where `N` is the number of allocated GPUs per node.
 
-One also needs to ensure that a different batch is sent to each GPU:
+One also needs to ensure that a different batch is processed by each GPU:
 
 ```python
 train_sampler = torch.utils.data.distributed.DistributedSampler(dataset1, num_replicas=world_size, rank=rank)

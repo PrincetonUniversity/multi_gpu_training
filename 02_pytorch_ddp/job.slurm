@@ -8,7 +8,6 @@
 #SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
-#SBATCH --mail-user=<YourNetID>@princeton.edu
 
 export MASTER_PORT=$(get_free_port)
 export WORLD_SIZE=$(($SLURM_NNODES * $SLURM_NTASKS_PER_NODE))
@@ -20,6 +19,6 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2023.9
-conda activate torch-env
+conda activate /home/jdh4/.conda/envs/torch-env
 
 srun python mnist_classify_ddp.py --epochs=2

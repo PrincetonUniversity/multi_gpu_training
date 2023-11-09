@@ -2,7 +2,7 @@
 
 [PyTorch Lightning](https://www.pytorchlightning.ai) wraps PyTorch to provide easy, distributed training done in your choice of numerical precision for the matrix multiples and other operations. To convert from PyTorch to PyTorch Lightning one simply needs to:
 
-+ restructure the code by moving the network definition, optimizer and other code to a subclass of `pl.LightningModule`  
++ restructure the code by moving the network definition, optimizer and other code to a subclass of `L.LightningModule`  
 + remove `.cuda()` and `.to()` calls since Lightning code is hardware agnostic  
 
 Once these changes have been made one can simply choose how many nodes or GPUs to use and Lightning will take care of the rest. One can also use different numerical precisions (fp16, bf16). There is tensorboard support and [model-parallel training](https://lightning.ai/docs/pytorch/stable/advanced/model_parallel.html).

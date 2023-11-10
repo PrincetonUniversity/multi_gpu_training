@@ -8,6 +8,7 @@ import time
 import functools
 
 from torch.utils.data import Dataset, DataLoader
+from torch.utils.data.distributed import DistributedSampler
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from torch.cuda.amp import autocast, GradScaler
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
@@ -16,9 +17,12 @@ from torch.distributed.fsdp.wrap import lambda_auto_wrap_policy
 
 # Parse command line arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--fsdp",
+parser.add_argument("--no_fsdp",
                     action="store_true",
-                    help="Train with FSDP. Otherwise, use DDP.")
+                    help="Train with DDP instead of FSPD.")
+parser.add_argument("--no_layer_wrap_policy",
+                    action="store_true",
+                    help="Don't use custom FSDP layer wrap policy.")
 parser.add_argument("--batch_size_per_device",
                     type=int,
                     default=1,
@@ -40,7 +44,7 @@ parser.add_argument("--gradient_checkpointing",
                     help="Use gradient checkpointing")
 parser.add_argument("--max_seq_length",
                     type=int,
-                    default=512,
+                    default=1024,
                     help="Maximum sequence length for truncation.")
 args = parser.parse_args()
 
@@ -76,8 +80,19 @@ class JsonlDataset(Dataset):
                     attention_mask=attention_mask,
                     labels=labels)
 
+
 def train(model, dataset, args):
-    dataloader = DataLoader(dataset, batch_size=args.batch_size_per_device, num_workers=4, collate_fn=dataset.collate)
+    sampler = DistributedSampler(dataset,
+                                 shuffle=True,
+                                 seed=42,
+                                 drop_last=True,
+                                 num_replicas=torch.distributed.get_world_size(),
+                                 rank=torch.distributed.get_rank())
+    dataloader = DataLoader(dataset,
+                            batch_size=args.batch_size_per_device,
+                            num_workers=4,
+                            collate_fn=dataset.collate,
+                            sampler=sampler)
 
     model.train()
     if args.gradient_checkpointing:
@@ -158,19 +173,30 @@ logger.info(f"Args: {args}")
 torch.random.manual_seed(42)
 
 # Load the tokenizer and model
-tokenizer = AutoTokenizer.from_pretrained("princeton-nlp/Sheared-LLaMA-2.7B", cache_dir=".cache")
-model = AutoModelForCausalLM.from_pretrained("princeton-nlp/Sheared-LLaMA-2.7B", cache_dir=".cache")
+tokenizer = AutoTokenizer.from_pretrained("codellama/CodeLlama-7b-hf", cache_dir=".cache")
+model = AutoModelForCausalLM.from_pretrained("codellama/CodeLlama-7b-hf", cache_dir=".cache")
+logger.info(model)
 
-# Move the model to the GPU and setup FSDP and wrap model
 torch.cuda.set_device(torch.distributed.get_rank())
 device = torch.cuda.current_device()
-if args.fsdp:
-    def layer_policy_fn(module):
-        return "layer" in module.__class__.__name__.lower()
-    lambda_policy = functools.partial(lambda_auto_wrap_policy, lambda_fn=layer_policy_fn)
-    model = FSDP(model, device_id=device, auto_wrap_policy=lambda_policy)
-else:
+if args.no_fsdp:
+    # Move the model to the GPU and wrap model with DDP (no model sharding)
     model = DDP(model.to(device))
+else:
+    auto_wrap_policy = None
+    if not args.no_layer_wrap_policy:
+        # Identify which modules have "layer" in their class name and use these
+        # as the basic FSDP blocks that are sharded and exchanged between GPUs
+        def layer_policy_fn(module):
+            return "layer" in module.__class__.__name__.lower()
+
+        auto_wrap_policy = functools.partial(lambda_auto_wrap_policy,
+                                             lambda_fn=layer_policy_fn)
+
+    # Wrap model as FSDP model
+    # If the model is too big, we shouldn't explicitly move it to GPU,
+    # but let FSDP handle it.
+    model = FSDP(model, device_id=device, auto_wrap_policy=auto_wrap_policy)
 
 # Assuming you have a `data.jsonl` in your current working directory
 dataset = JsonlDataset("strategic_game_chess.jsonl", tokenizer)

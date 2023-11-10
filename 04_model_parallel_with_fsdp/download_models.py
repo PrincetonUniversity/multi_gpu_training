@@ -1,4 +1,4 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-AutoTokenizer.from_pretrained("princeton-nlp/Sheared-LLaMA-2.7B", cache_dir=".cache")
-AutoModelForCausalLM.from_pretrained("princeton-nlp/Sheared-LLaMA-2.7B", cache_dir=".cache")
+AutoTokenizer.from_pretrained("codellama/CodeLlama-7b-hf", cache_dir=".cache")
+AutoModelForCausalLM.from_pretrained("codellama/CodeLlama-7b-hf", cache_dir=".cache")

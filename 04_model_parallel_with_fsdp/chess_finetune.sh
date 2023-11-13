@@ -9,10 +9,15 @@
 #SBATCH --time=01:00:00            # total run time limit (HH:MM:SS)
 #SBATCH --constraint=gpu80         # run job on specific node types
 
+# You can override the default values of these parameters by adding `TOTAL_BATCH_SIZE=... sbatch chess_finetune.sh`
+# The default values are given after the minus (i.e., 64 and 1) and are used if the variable is empty
 total_batch_size=${TOTAL_BATCH_SIZE:-64} # total batch size per optimization
 batch_size_per_device=${BATCH_SIZE_PER_DEVICE:-1} # batch size per device
 
+# Read CUDA_VISIBLE_DEVICES to detect the number of GPUs
 num_gpus=$(jq -n "[$CUDA_VISIBLE_DEVICES] | length")
+
+# Compute the gradient accumulation steps given a total batch size and a batch size per device
 gradient_accumulation_steps=$(($total_batch_size / $batch_size_per_device / $num_gpus))
 
 torchrun \

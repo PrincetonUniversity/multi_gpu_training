@@ -9,6 +9,10 @@
 #SBATCH --time=01:00:00            # total run time limit (HH:MM:SS)
 #SBATCH --constraint=gpu80         # run job on specific node types
 
+module load anaconda3/2023.9
+# environment with pytorch (cuda) and huggingface transformers installed
+conda activate hf-env
+
 # You can override the default values of these parameters by adding `TOTAL_BATCH_SIZE=... sbatch chess_finetune.sh`
 # The default values are given after the minus (i.e., 64 and 1) and are used if the variable is empty
 total_batch_size=${TOTAL_BATCH_SIZE:-64} # total batch size per optimization

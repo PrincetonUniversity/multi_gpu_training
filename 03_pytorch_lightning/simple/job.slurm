@@ -11,6 +11,6 @@
 
 module purge
 module load anaconda3/2023.9
-conda activate /home/jdh4/.conda/envs/torch-pl-env
+conda activate torch-pl-env
 
 srun python example.py

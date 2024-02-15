@@ -11,6 +11,6 @@
 
 module purge
 module load anaconda3/2023.9
-conda activate /home/jdh4/.conda/envs/bolts-env
+conda activate bolts-env
 
 srun python myscript.py

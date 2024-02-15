@@ -157,7 +157,7 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2023.9
-conda activate /home/jdh4/.conda/envs/torch-env
+conda activate torch-env
 
 srun python simple_dpp.py
 ```
@@ -241,7 +241,7 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2023.9
-conda activate /home/jdh4/.conda/envs/torch-env
+conda activate torch-env
 
 srun python mnist_classify_ddp.py --epochs=2
 ```
@@ -429,7 +429,7 @@ Execute the commands below to run the example above:
 $ git clone https://github.com/PrincetonUniversity/multi_gpu_training.git
 $ cd multi_gpu_training/02_pytorch_ddp
 $ module load anaconda3/2023.9
-$ conda activate /home/jdh4/.conda/envs/torch-env
+$ conda activate torch-env
 (torch-env) $ python download_data.py
 (torch-env) $ sbatch --reservation=multigpu job.slurm
 ```

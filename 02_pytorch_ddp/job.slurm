@@ -19,6 +19,6 @@ echo "MASTER_ADDR="$MASTER_ADDR
 
 module purge
 module load anaconda3/2023.9
-conda activate /home/jdh4/.conda/envs/torch-env
+conda activate torch-env
 
 srun python mnist_classify_ddp.py --epochs=2

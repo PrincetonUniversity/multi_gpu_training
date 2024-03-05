@@ -17,6 +17,6 @@ printenv | grep -i slurm | sort
 
 module purge
 module load anaconda3/2023.9
-conda activate /home/jdh4/.conda/envs/torch-env
+conda activate torch-env
 
 kernprof -o ${SLURM_JOBID}.lprof -l mnist_classify.py --epochs=3

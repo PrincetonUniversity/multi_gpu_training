@@ -2,7 +2,7 @@
 ## Background
 For background on model parallelism, FSDP and related technologies, see [slides](slides.pdf). We also recommend the blog [Everything about Distributed Training and Efficient Finetuning](https://sumanthrh.com/post/distributed-and-efficient-finetuning/) for a more comprehensive overview over these subjects.
 
-Also, see the [getting started materials](https://drive.google.com/drive/folders/1t0bXsuCg8SUv-GEs7G5twqSCaHYVJRSG) by Princeton Language and Intelligence, which illustrates multi-GPU training for Hugging Face.
+Also, see the [getting started materials](https://drive.google.com/drive/folders/1t0bXsuCg8SUv-GEs7G5twqSCaHYVJRSG) by Princeton Language and Intelligence, which illustrates multi-GPU training for Hugging Face, and the [Wintersession 2025 materials](https://drive.google.com/drive/folders/1I-pENLfGT96VvC7AODv2exYxuhMXZzy4?usp=sharing).
 
 ## Example
 ***NOTE***: This demo is only meant to illustrate a simple and transparent training run with FSDP, and should not be used as a deep-learning training script. We intentially omit common features such as model checkpoints, evaluation, etc.

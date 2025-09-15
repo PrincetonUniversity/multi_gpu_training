@@ -445,7 +445,3 @@ If you are using the [PyTorch container](https://researchcomputing.princeton.edu
 ```
 srun singularity exec --nv $HOME/software/pytorch_23.09-py3.sif python mnist_classify_ddp.py --epochs=3
 ```
-
-## Notes on Traverse
-
-Be sure to use the example above for DDP. Do not use the file-based method for initializing the process group. Be sure to follow the [installation directions](https://researchcomputing.princeton.edu/support/knowledge-base/tensorflow#install) using the MIT Conda channel.
